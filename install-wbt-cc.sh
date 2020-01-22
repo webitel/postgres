@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
 
-chmod +x /usr/local/lib/postgresql/wbt_cc_sql.so
-
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" "$POSTGRES_DB" <<-EOSQL
 
 CREATE or replace FUNCTION cc_destination_in(cstring) RETURNS cc_destination
