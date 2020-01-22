@@ -73,16 +73,6 @@ ALTER TABLE IF EXISTS ONLY public.calendar_accept_of_day DROP CONSTRAINT IF EXIS
 ALTER TABLE IF EXISTS ONLY permissions.wbt_auth DROP CONSTRAINT IF EXISTS wbt_auth_wbt_domain_id_fk;
 ALTER TABLE IF EXISTS ONLY permissions.wbt_auth_member DROP CONSTRAINT IF EXISTS wbt_auth_member_group_fk;
 ALTER TABLE IF EXISTS ONLY permissions.wbt_auth_member DROP CONSTRAINT IF EXISTS wbt_auth_member_domain_dc_fk;
-ALTER TABLE IF EXISTS ONLY igor.users_u_groups_xref DROP CONSTRAINT IF EXISTS users_u_groups_xref_usr_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.users_u_groups_xref DROP CONSTRAINT IF EXISTS users_u_groups_xref_u_group_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.objects_o_groups_xref DROP CONSTRAINT IF EXISTS objects_o_groups_xref_obj_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.objects_o_groups_xref DROP CONSTRAINT IF EXISTS objects_o_groups_xref_o_group_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.o_u_groups_permissions DROP CONSTRAINT IF EXISTS o_u_groups_permissions_u_group_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.o_u_groups_permissions DROP CONSTRAINT IF EXISTS o_u_groups_permissions_o_group_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.o_u_groups_permissions DROP CONSTRAINT IF EXISTS o_u_groups_permissions_act_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.permissions DROP CONSTRAINT IF EXISTS my_permissions_usr_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.permissions DROP CONSTRAINT IF EXISTS my_permissions_obj_id_fkey;
-ALTER TABLE IF EXISTS ONLY igor.permissions DROP CONSTRAINT IF EXISTS my_permissions_act_id_fkey;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_updated_by_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_updated_by_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_owner_id_fk;
@@ -138,7 +128,6 @@ ALTER TABLE IF EXISTS ONLY directory.voip_channel DROP CONSTRAINT IF EXISTS voip
 ALTER TABLE IF EXISTS ONLY directory.sip_gateway_register DROP CONSTRAINT IF EXISTS sip_gateway_register_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.sip_gateway_allow DROP CONSTRAINT IF EXISTS sip_gateway_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.sip_gateway DROP CONSTRAINT IF EXISTS sip_gateway_domain_fk;
-ALTER TABLE IF EXISTS ONLY directory.sip_gateway DROP CONSTRAINT IF EXISTS sip_gateway_acr_routing_scheme_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.roles DROP CONSTRAINT IF EXISTS roles_dc_fk;
 ALTER TABLE IF EXISTS ONLY directory.roles DROP CONSTRAINT IF EXISTS role_updator_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.roles DROP CONSTRAINT IF EXISTS role_updated_by_fk;
@@ -192,11 +181,6 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_member_attempt DROP CONSTRAINT IF EXIS
 ALTER TABLE IF EXISTS ONLY call_center.cc_member_attempt DROP CONSTRAINT IF EXISTS cc_member_attempt_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_list DROP CONSTRAINT IF EXISTS cc_list_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_list_communications DROP CONSTRAINT IF EXISTS cc_list_communications_cc_list_id_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_subject_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_object_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_grantor_id_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_grantor_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_in_queue DROP CONSTRAINT IF EXISTS cc_bucket_in_queue_cc_queue_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_in_queue DROP CONSTRAINT IF EXISTS cc_bucket_in_queue_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_cc_bucket_id_fk;
@@ -206,9 +190,9 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_agent_state_history DROP CONSTRAINT IF
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_activity DROP CONSTRAINT IF EXISTS cc_agent_statistic_cc_agent_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_team_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_skils_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_agent_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_attempt DROP CONSTRAINT IF EXISTS cc_agent_attempt_cc_agent_id_fk;
-ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_object_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_cc_agent_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar DROP CONSTRAINT IF EXISTS calendar_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar_except DROP CONSTRAINT IF EXISTS calendar_except_calendar_id_fk;
@@ -445,10 +429,6 @@ DROP INDEX IF EXISTS permissions.wbt_domain_id_uindex;
 DROP INDEX IF EXISTS permissions.wbt_auth_member_dc_member_id_index;
 DROP INDEX IF EXISTS permissions.wbt_auth_id_uindex;
 DROP INDEX IF EXISTS permissions.tst;
-DROP INDEX IF EXISTS igor.users_u_groups_xref_usr_id_u_group_id_uindex;
-DROP INDEX IF EXISTS igor.permissions_usr_id_act_id_obj_id_uindex;
-DROP INDEX IF EXISTS igor.objects_o_groups_xref_o_group_id_obj_id_uindex;
-DROP INDEX IF EXISTS igor.o_u_groups_permissions_act_id_u_group_id_o_group_id_uindex;
 DROP INDEX IF EXISTS directory.wbt_user_token_user_id_idx;
 DROP INDEX IF EXISTS directory.wbt_user_token_udx;
 DROP INDEX IF EXISTS directory.wbt_user_token_domain_id_idx;
@@ -526,34 +506,27 @@ DROP INDEX IF EXISTS call_center.cc_outbound_resource_display_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_acl_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_member_timezone_index;
 DROP INDEX IF EXISTS call_center.cc_member_queue_id_index;
-DROP INDEX IF EXISTS call_center.cc_member_number_idx;
 DROP INDEX IF EXISTS call_center.cc_member_messages_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_member_distribute_to_down_idx;
 DROP INDEX IF EXISTS call_center.cc_member_distribute_cycle_idx;
-DROP INDEX IF EXISTS call_center.cc_member_distribute_check_type_top_dx;
-DROP INDEX IF EXISTS call_center.cc_member_distribute_check_type_prior_dx;
 DROP INDEX IF EXISTS call_center.cc_member_distribute_check_sys_offset_id;
 DROP INDEX IF EXISTS call_center.cc_member_communications_test1_index;
 DROP INDEX IF EXISTS call_center.cc_member_communications_queue_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_communications_member_id_index;
-DROP INDEX IF EXISTS call_center.cc_member_communication_idx;
 DROP INDEX IF EXISTS call_center.cc_member_communication_dis_idx;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_queue_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_member_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_queue_id_idx;
+DROP INDEX IF EXISTS call_center.cc_member_attempt_log_member_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_hangup_at_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_created_at_queue_id_bucket_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_created_at_agent_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_created_at_agent_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_member_agent_id_index;
-DROP INDEX IF EXISTS call_center.cc_list_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_list_communications_list_id_number_uindex;
 DROP INDEX IF EXISTS call_center.cc_list_communications_id_uindex;
-DROP INDEX IF EXISTS call_center.cc_list_acl_subject_object_udx;
-DROP INDEX IF EXISTS call_center.cc_list_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_list_acl_id_uindex;
-DROP INDEX IF EXISTS call_center.cc_list_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_communication_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_communication_code_domain_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_cluster_node_name_uindex;
@@ -575,14 +548,13 @@ DROP INDEX IF EXISTS call_center.cc_agent_in_team_team_id_lvl_index;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_team_id_agent_id_skill_id_lvl_uindex;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_skill_id_team_id_index;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_agent_in_team_dis_skill;
+DROP INDEX IF EXISTS call_center.cc_agent_in_team_dis_agent;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_agent_id_index;
 DROP INDEX IF EXISTS call_center.cc_agent_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_agent_attempt_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_agent_activity_agent_id_last_offering_call_at_uindex;
-DROP INDEX IF EXISTS call_center.cc_agent_acl_subject_object_udx;
-DROP INDEX IF EXISTS call_center.cc_agent_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_agent_acl_id_uindex;
-DROP INDEX IF EXISTS call_center.cc_agent_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.calendar_timezones_utc_offset_index;
 DROP INDEX IF EXISTS call_center.calendar_timezones_name_uindex;
 DROP INDEX IF EXISTS call_center.calendar_timezones_id_uindex;
@@ -740,15 +712,6 @@ ALTER TABLE IF EXISTS ONLY permissions.wbt_test_acl DROP CONSTRAINT IF EXISTS wb
 ALTER TABLE IF EXISTS ONLY permissions.wbt_module DROP CONSTRAINT IF EXISTS wbt_modules_pk;
 ALTER TABLE IF EXISTS ONLY permissions.wbt_domain DROP CONSTRAINT IF EXISTS wbt_domain_pk;
 ALTER TABLE IF EXISTS ONLY permissions.wbt_auth DROP CONSTRAINT IF EXISTS wbt_auth_pk;
-ALTER TABLE IF EXISTS ONLY igor.users_u_groups_xref DROP CONSTRAINT IF EXISTS users_u_groups_xref_pkey;
-ALTER TABLE IF EXISTS ONLY igor.u_groups DROP CONSTRAINT IF EXISTS u_groups_pkey;
-ALTER TABLE IF EXISTS ONLY igor.objects_o_groups_xref DROP CONSTRAINT IF EXISTS objects_o_groups_xref_pkey;
-ALTER TABLE IF EXISTS ONLY igor.o_u_groups_permissions DROP CONSTRAINT IF EXISTS o_u_groups_permissions_pkey;
-ALTER TABLE IF EXISTS ONLY igor.o_groups DROP CONSTRAINT IF EXISTS o_groups_pkey;
-ALTER TABLE IF EXISTS ONLY igor.users DROP CONSTRAINT IF EXISTS my_users_pkey;
-ALTER TABLE IF EXISTS ONLY igor.permissions DROP CONSTRAINT IF EXISTS my_permissions_pkey;
-ALTER TABLE IF EXISTS ONLY igor.objects DROP CONSTRAINT IF EXISTS my_objects_pkey;
-ALTER TABLE IF EXISTS ONLY igor.actions DROP CONSTRAINT IF EXISTS my_actions_pkey;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_pk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_pk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_session DROP CONSTRAINT IF EXISTS wbt_session_token_pk;
@@ -911,14 +874,6 @@ ALTER TABLE IF EXISTS public.acc ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS permissions.wbt_test_acl ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS permissions.wbt_domain ALTER COLUMN dc DROP DEFAULT;
 ALTER TABLE IF EXISTS permissions.wbt_auth ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.users_u_groups_xref ALTER COLUMN users_u_groups_xref_id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.users ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.u_groups ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.permissions ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.objects_o_groups_xref ALTER COLUMN objects_o_groups_xref_id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.objects ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.o_u_groups_permissions ALTER COLUMN o_u_groups_permissions_id DROP DEFAULT;
-ALTER TABLE IF EXISTS igor.o_groups ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS directory.wbt_grant ALTER COLUMN uuid DROP DEFAULT;
 ALTER TABLE IF EXISTS directory.wbt_device ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS directory.wbt_class ALTER COLUMN id DROP DEFAULT;
@@ -1190,23 +1145,6 @@ DROP TABLE IF EXISTS permissions.wbt_domain;
 DROP TABLE IF EXISTS permissions.wbt_auth_member;
 DROP SEQUENCE IF EXISTS permissions.wbt_auth_id_seq;
 DROP TABLE IF EXISTS permissions.wbt_auth;
-DROP SEQUENCE IF EXISTS igor.users_u_groups_xref_users_u_groups_xref_id_seq;
-DROP TABLE IF EXISTS igor.users_u_groups_xref;
-DROP SEQUENCE IF EXISTS igor.users_id_seq;
-DROP TABLE IF EXISTS igor.users;
-DROP SEQUENCE IF EXISTS igor.u_groups_id_seq;
-DROP TABLE IF EXISTS igor.u_groups;
-DROP SEQUENCE IF EXISTS igor.permissions_id_seq;
-DROP TABLE IF EXISTS igor.permissions;
-DROP SEQUENCE IF EXISTS igor.objects_o_groups_xref_objects_o_groups_xref_id_seq;
-DROP TABLE IF EXISTS igor.objects_o_groups_xref;
-DROP SEQUENCE IF EXISTS igor.objects_id_seq;
-DROP TABLE IF EXISTS igor.objects;
-DROP SEQUENCE IF EXISTS igor.o_u_groups_permissions_o_u_groups_permissions_id_seq;
-DROP TABLE IF EXISTS igor.o_u_groups_permissions;
-DROP SEQUENCE IF EXISTS igor.o_groups_id_seq;
-DROP TABLE IF EXISTS igor.o_groups;
-DROP TABLE IF EXISTS igor.actions;
 DROP TABLE IF EXISTS directory.wbt_user_token;
 DROP SEQUENCE IF EXISTS directory.wbt_user_id_seq;
 DROP VIEW IF EXISTS directory.wbt_subscriber;
@@ -1252,6 +1190,7 @@ DROP VIEW IF EXISTS call_center.cc_sys_resources;
 DROP VIEW IF EXISTS call_center.cc_sys_queue_distribute_resources;
 DROP VIEW IF EXISTS call_center.cc_sys_distribute_queue;
 DROP VIEW IF EXISTS call_center.cc_sys_distribute_queue_bucket_seg;
+DROP VIEW IF EXISTS call_center.cc_sys_agent_group_team_bucket;
 DROP SEQUENCE IF EXISTS call_center.cc_supervisor_in_team_id_seq;
 DROP TABLE IF EXISTS call_center.cc_supervisor_in_team;
 DROP SEQUENCE IF EXISTS call_center.cc_skils_id_seq;
@@ -1425,12 +1364,14 @@ DROP FUNCTION IF EXISTS call_center.cc_timezone_offset_id(integer);
 DROP FUNCTION IF EXISTS call_center.cc_test_time(timezone_ jsonb);
 DROP FUNCTION IF EXISTS call_center.cc_test_time(timezone_ interval);
 DROP FUNCTION IF EXISTS call_center.cc_test_recursive(arg1 integer);
+DROP FUNCTION IF EXISTS call_center.cc_test_recursion(req call_center.cc_sys_distribute_request, agents integer[], resources call_center.cc_sys_distribute_resource[], types call_center.cc_sys_distribute_type[]);
 DROP FUNCTION IF EXISTS call_center.cc_test_pair(call_center.cc_member_communications);
 DROP TABLE IF EXISTS call_center.cc_member_communications;
 DROP FUNCTION IF EXISTS call_center.cc_test_cursor();
 DROP FUNCTION IF EXISTS call_center.cc_test_calendar(timezone_ character varying);
 DROP FUNCTION IF EXISTS call_center.cc_test_any(jsonb);
 DROP FUNCTION IF EXISTS call_center.cc_team_fetch_agent(team_id_ integer);
+DROP FUNCTION IF EXISTS call_center.cc_team_agents_by_bucket(team_id_ integer, bucket_id integer);
 DROP FUNCTION IF EXISTS call_center.cc_sys_distribute_members(integer, integer, integer, integer, integer, bigint, smallint[], call_center.cc_sys_distribute_type[], call_center.cc_sys_distribute_resource[], integer[]);
 DROP FUNCTION IF EXISTS call_center.cc_stop_attempt(_attempt_id bigint, _delta smallint, _state smallint, _hangup_at bigint, _cause character varying);
 DROP FUNCTION IF EXISTS call_center.cc_set_attempt_success(_attempt_id bigint, _hangup_at bigint, _logs jsonb, _cause character varying);
@@ -1441,6 +1382,7 @@ DROP FUNCTION IF EXISTS call_center.cc_set_agent_change_status();
 DROP FUNCTION IF EXISTS call_center.cc_set_active_members(node character varying);
 DROP FUNCTION IF EXISTS call_center.cc_resource_set_error(_id bigint, _routing_id bigint, _error_id character varying, _strategy character varying);
 DROP FUNCTION IF EXISTS call_center.cc_reserved_agent_for_attempt(_node_id character varying);
+DROP FUNCTION IF EXISTS call_center.cc_reserve_members_with_resources2(node_id character varying);
 DROP FUNCTION IF EXISTS call_center.cc_reserve_members_with_resources(node_id character varying);
 DROP FUNCTION IF EXISTS call_center.cc_queue_timing_timezones(queue_id_ bigint, calendar_id_ bigint);
 DROP FUNCTION IF EXISTS call_center.cc_queue_timing_communication_ids(_queue_id bigint);
@@ -1466,18 +1408,19 @@ DROP FUNCTION IF EXISTS call_center.cc_member_distribute_by_strategy(_queue_id b
 DROP TABLE IF EXISTS call_center.cc_member;
 DROP FUNCTION IF EXISTS call_center.cc_member_communications(jsonb);
 DROP FUNCTION IF EXISTS call_center.cc_member_communication_types(jsonb);
+DROP FUNCTION IF EXISTS call_center.cc_member_attempt_log_day_f(queue_id integer, bucket_id integer);
 DROP FUNCTION IF EXISTS call_center.cc_member_active_next_communications(_communications_arr jsonb, _type integer, _strategy text);
 DROP FUNCTION IF EXISTS call_center.cc_member_active_communications(jsonb);
 DROP FUNCTION IF EXISTS call_center.cc_interval_to_arr(i_ interval);
 DROP FUNCTION IF EXISTS call_center.cc_get_time(_t character varying, _def_t character varying);
 DROP FUNCTION IF EXISTS call_center.cc_get_lookup(_id bigint, _name character varying);
 DROP FUNCTION IF EXISTS call_center.cc_distribute_inbound_call_to_queue(_queue_id bigint, _call_id character varying, _number character varying, _name character varying, _priority integer);
-DROP FUNCTION IF EXISTS call_center.cc_distribute_communication(_coms call_center.cc_communication_type_in_member[], search_t integer);
 DROP FUNCTION IF EXISTS call_center.cc_distribute_agent_to_attempt(_node_id character varying);
 DROP FUNCTION IF EXISTS call_center.cc_distribute_agent_for_attempt();
 DROP FUNCTION IF EXISTS call_center.cc_destination_type_id(call_center.cc_destination);
 DROP FUNCTION IF EXISTS call_center.cc_destination_top_by_priority(call_center.cc_destination[]);
 DROP FUNCTION IF EXISTS call_center.cc_destination_top(call_center.cc_destination[]);
+DROP FUNCTION IF EXISTS call_center.cc_destination_in(integer, integer, bigint, integer, integer);
 DROP FUNCTION IF EXISTS call_center.cc_destination_id(call_center.cc_destination);
 DROP FUNCTION IF EXISTS call_center.cc_count_estimate(query text);
 DROP FUNCTION IF EXISTS call_center.cc_confirm_agent_attempt(_agent_id bigint, _attempt_id bigint);
@@ -1496,6 +1439,7 @@ DROP TYPE IF EXISTS call_center.cc_type;
 DROP TYPE IF EXISTS call_center.cc_sys_distribute_type;
 DROP TYPE IF EXISTS call_center.cc_sys_distribute_resource2;
 DROP TYPE IF EXISTS call_center.cc_sys_distribute_resource;
+DROP TYPE IF EXISTS call_center.cc_sys_distribute_request;
 DROP TYPE IF EXISTS call_center.cc_pair_test;
 DROP TYPE IF EXISTS call_center.cc_destination CASCADE;
 DROP FUNCTION IF EXISTS call_center.cc_destination_out(call_center.cc_destination);
@@ -1513,7 +1457,6 @@ DROP EXTENSION IF EXISTS intarray;
 DROP EXTENSION IF EXISTS btree_gin;
 DROP SCHEMA IF EXISTS storage;
 DROP SCHEMA IF EXISTS permissions;
-DROP SCHEMA IF EXISTS igor;
 DROP SCHEMA IF EXISTS directory;
 DROP SCHEMA IF EXISTS call_center;
 --
@@ -1528,13 +1471,6 @@ CREATE SCHEMA call_center;
 --
 
 CREATE SCHEMA directory;
-
-
---
--- Name: igor; Type: SCHEMA; Schema: -; Owner: -
---
-
-CREATE SCHEMA igor;
 
 
 --
@@ -1701,7 +1637,7 @@ CREATE TYPE call_center.cc_destination;
 
 CREATE FUNCTION call_center.cc_destination_in(cstring) RETURNS call_center.cc_destination
     LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_in';
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_in';
 
 
 --
@@ -1710,7 +1646,7 @@ CREATE FUNCTION call_center.cc_destination_in(cstring) RETURNS call_center.cc_de
 
 CREATE FUNCTION call_center.cc_destination_out(call_center.cc_destination) RETURNS cstring
     LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_out';
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_out';
 
 
 --
@@ -1733,6 +1669,22 @@ CREATE TYPE call_center.cc_destination (
 CREATE TYPE call_center.cc_pair_test AS (
 	c integer,
 	a integer
+);
+
+
+--
+-- Name: cc_sys_distribute_request; Type: TYPE; Schema: call_center; Owner: -
+--
+
+CREATE TYPE call_center.cc_sys_distribute_request AS (
+	queue_id integer,
+	bucket_id integer,
+	queue_type integer,
+	epoch_time bigint,
+	timezones smallint[],
+	ratio integer,
+	max_count integer,
+	strategy smallint
 );
 
 
@@ -2027,7 +1979,16 @@ $$;
 
 CREATE FUNCTION call_center.cc_destination_id(call_center.cc_destination) RETURNS integer
     LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_id';
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_id';
+
+
+--
+-- Name: cc_destination_in(integer, integer, bigint, integer, integer); Type: FUNCTION; Schema: call_center; Owner: -
+--
+
+CREATE FUNCTION call_center.cc_destination_in(integer, integer, bigint, integer, integer) RETURNS call_center.cc_destination
+    LANGUAGE c IMMUTABLE
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_in_args';
 
 
 --
@@ -2036,7 +1997,7 @@ CREATE FUNCTION call_center.cc_destination_id(call_center.cc_destination) RETURN
 
 CREATE FUNCTION call_center.cc_destination_top(call_center.cc_destination[]) RETURNS call_center.cc_destination
     LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_top';
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_top';
 
 
 --
@@ -2045,7 +2006,7 @@ CREATE FUNCTION call_center.cc_destination_top(call_center.cc_destination[]) RET
 
 CREATE FUNCTION call_center.cc_destination_top_by_priority(call_center.cc_destination[]) RETURNS call_center.cc_destination
     LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_top_by_priority';
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_top_by_priority';
 
 
 --
@@ -2053,8 +2014,8 @@ CREATE FUNCTION call_center.cc_destination_top_by_priority(call_center.cc_destin
 --
 
 CREATE FUNCTION call_center.cc_destination_type_id(call_center.cc_destination) RETURNS integer
-    LANGUAGE c IMMUTABLE STRICT
-    AS '/wbt_cc_sql.so', 'cc_destination_type_id';
+    LANGUAGE c IMMUTABLE STRICT PARALLEL SAFE
+    AS '$libdir/wbt_cc_sql.so', 'cc_destination_type_id';
 
 
 --
@@ -2156,38 +2117,6 @@ FOR rec IN select cq.id::bigint queue_id, cq.strategy::varchar(50), count(*)::in
   return;
 END;
 $$;
-
-
---
--- Name: cc_distribute_communication(call_center.cc_communication_type_in_member[], integer); Type: FUNCTION; Schema: call_center; Owner: -
---
-
-CREATE FUNCTION call_center.cc_distribute_communication(_coms call_center.cc_communication_type_in_member[], search_t integer) RETURNS boolean
-    LANGUAGE plpgsql IMMUTABLE
-    AS $_$
-    declare
-        r cc_communication_type_in_member;
-        pos int = 0;
-        max_pos int = 0;
-BEGIN
-        
-    if $1 isnull then 
-        return false;
-    end if;
-
-    max_pos = 1;
-
-    FOREACH r IN ARRAY $1 LOOP
-        pos = pos + 1;
-        --raise notice 'debug: % % % %', pos, max_pos, r.last_activity, (_coms[pos]::cc_communication_type_in_member);
-        if r.last_activity > (_coms[max_pos]::cc_communication_type_in_member).last_activity then
-            max_pos = pos;
-        end if;
-    END loop;
-
-    return (_coms[max_pos]::cc_communication_type_in_member).type_id = search_t;
-END;
-$_$;
 
 
 --
@@ -2332,6 +2261,20 @@ $_$;
 
 
 --
+-- Name: cc_member_attempt_log_day_f(integer, integer); Type: FUNCTION; Schema: call_center; Owner: -
+--
+
+CREATE FUNCTION call_center.cc_member_attempt_log_day_f(queue_id integer, bucket_id integer) RETURNS integer
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+    SELECT sum(l.count)::int4 AS cnt
+     FROM call_center.cc_member_attempt_log_day l
+     WHERE $2 IS NOT NULL and l.queue_id = $1::int
+       AND l.bucket_id = $2::int4
+$_$;
+
+
+--
 -- Name: cc_member_communication_types(jsonb); Type: FUNCTION; Schema: call_center; Owner: -
 --
 
@@ -2378,7 +2321,7 @@ CREATE TABLE call_center.cc_member (
     id integer NOT NULL,
     queue_id integer NOT NULL,
     priority smallint DEFAULT 0 NOT NULL,
-    expire_at bigint,
+    expire_at integer,
     variables jsonb DEFAULT '{}'::jsonb,
     name character varying(50) DEFAULT ''::character varying NOT NULL,
     stop_cause character varying(50),
@@ -2396,7 +2339,7 @@ CREATE TABLE call_center.cc_member (
     sys_destinations call_center.cc_destination[],
     sys_offset_id smallint,
     min_offering_at bigint,
-    created_at bigint DEFAULT ((date_part('epoch'::text, now()) * (1000)::double precision))::bigint NOT NULL
+    created_at bigint DEFAULT ((date_part('epoch'::text, now()) * (1000)::double precision))::bigint
 )
 WITH (fillfactor='80', log_autovacuum_min_duration='0', autovacuum_analyze_threshold='50', autovacuum_vacuum_scale_factor='0.01', autovacuum_analyze_scale_factor='0.05', autovacuum_enabled='1', autovacuum_vacuum_cost_delay='50');
 ALTER TABLE ONLY call_center.cc_member ALTER COLUMN "offset" SET STATISTICS 100;
@@ -2469,15 +2412,10 @@ CREATE FUNCTION call_center.cc_member_set_sys_destinations_tg() RETURNS trigger
     AS $$
 BEGIN
     if new.communications notnull and jsonb_typeof(new.communications) = 'array' then
-        new.sys_destinations = (select array_agg(a)
-                                from (
-                                         select ('(' || idx::int4 || ',' || (x.x -> 'type'->'id')::int4 || ',' ||
-                                                 coalesce((x -> 'last_activity_at')::int8, (x.x -> 'type'->'id')::int4)::int8 || ')')::cc_destination
-                                         from jsonb_array_elements(new.communications) with ordinality as x(x, idx)
-                                         where coalesce((x.x -> 'stopped_at')::int8, 0) = 0
-                                           and idx > -1
-                                     ) a
-                                where a notnull);
+        new.sys_destinations = (select array(select cc_destination_in(idx::int4, (x -> 'type' ->> 'id')::int4, (x ->> 'last_activity_at')::int8,  (x -> 'resource' ->> 'id')::int, (x ->> 'priority')::int)
+         from jsonb_array_elements(new.communications) with ordinality as x(x, idx)
+         where coalesce((x.x -> 'stopped_at')::int8, 0) = 0
+         and idx > -1));
 
     else
         new.sys_destinations = null;
@@ -2508,20 +2446,23 @@ $$;
 CREATE FUNCTION call_center.cc_member_statistic_trigger_deleted() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
+    declare cnt int;
 BEGIN
+
     insert into cc_queue_statistics (bucket_id, queue_id, member_count, member_waiting)
     select t.bucket_id, t.queue_id, t.cnt, t.cntwait
     from (
-         select queue_id, bucket_id, count(*) cnt, count(*) filter ( where m.stop_at = 0 ) cntwait
-         from deleted m
-         group by queue_id, bucket_id
-    ) t
-        on conflict (queue_id, coalesce(bucket_id, 0))
+             select queue_id, bucket_id, count(*) cnt, count(*) filter ( where m.stop_at = 0 ) cntwait
+             from deleted m
+                inner join cc_queue q on q.id = m.queue_id
+             group by queue_id, bucket_id
+         ) t
+    on conflict (queue_id, coalesce(bucket_id, 0))
         do update
-            set member_count = cc_queue_statistics.member_count - EXCLUDED.member_count ,
-                member_waiting = cc_queue_statistics.member_waiting - EXCLUDED.member_waiting ;
+        set member_count   = cc_queue_statistics.member_count - EXCLUDED.member_count,
+            member_waiting = cc_queue_statistics.member_waiting - EXCLUDED.member_waiting;
 
-   RETURN NULL;
+    RETURN NULL;
 END
 $$;
 
@@ -2601,9 +2542,9 @@ $$;
 CREATE FUNCTION call_center.cc_member_sys_offset_id_trigger_inserted() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-    declare res int4[];
+declare res int4[];
 BEGIN
-    if new.timezone_id isnull then
+    if new.timezone_id isnull or new.timezone_id = 0 then
         res = cc_queue_default_timezone_offset_id(new.queue_id);
         new.timezone_id = res[1];
         new.sys_offset_id = res[2];
@@ -3167,7 +3108,7 @@ FOR queue IN select *, case when bucket_id isnull  then null
                   cc_sys_distribute_members(
                      r.queue_id::int4, --queue
                      queue.bucket_id::int4, --bucket
-                     queue.resource_ratio::int4, -- bucket ratio
+                     100, --queue.resource_ratio::int4, -- bucket ratio
                      1::int, --strategy
                      queue.buckets_cnt::int4, --limit
                      cur_time,
@@ -3194,6 +3135,95 @@ FOR queue IN select *, case when bucket_id isnull  then null
     return cnt;
 END;
 $_$;
+
+
+--
+-- Name: cc_reserve_members_with_resources2(character varying); Type: FUNCTION; Schema: call_center; Owner: -
+--
+
+CREATE FUNCTION call_center.cc_reserve_members_with_resources2(node_id character varying) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    queue     RECORD;
+    domain_id int8 = null;
+    cur_time  int8 = (select extract(EPOCH from now())::bigint * 1000);
+    seg_cnt   int  = 0;
+    cnt       int  = 0;
+BEGIN
+
+    if NOT pg_try_advisory_xact_lock(13213211) then
+        raise notice 'LOCK';
+        return 0;
+    end if;
+
+    CREATE temp table cc_distribute_member_tmp ON COMMIT DROP as
+    with dis as (
+        select q.domain_id,
+               row_number() over (partition by q.domain_id order by q.priority desc, csdqbs.bucket_id nulls last) pos,
+               q.id,
+               q.team_id,
+               q.calendar_id,
+               q.type,
+               csdqbs.bucket_id,
+               case
+                   when q.type = 1 then (select count(*) --fixme for test
+                                         from cc_member_attempt a
+                                         where a.queue_id = q.id
+                                           and a.state = 3
+                                           and a.agent_id isnull)
+                   else csdqbs.member_waiting end                                                                 member_waiting
+        from cc_queue q
+                 left join cc_sys_distribute_queue_bucket_seg csdqbs on q.id = csdqbs.queue_id and q.type > 1
+        where q.enabled
+          and (q.type < 2 or csdqbs.member_waiting > 0)
+    )
+            ,
+         res as (
+             select dis.*, r.resources, r.types, r.ran
+             from dis
+                      left join cc_sys_queue_distribute_resources r on r.queue_id = dis.id and dis.type != 1
+             where dis.member_waiting > 0
+               and (dis.type = 1 or r.queue_id notnull)
+         ),
+         ag as (
+             select t.*, cc_team_agents_by_bucket(t.team_id::int, t.bucket_id::int) agents
+             from (
+                      select res.team_id, res.bucket_id
+                      from res
+                      where res.team_id notnull
+                        and res.type != 2
+                      group by res.team_id, res.bucket_id
+                  ) t
+         )
+    select x.*, t.bucket_id, t.id as queue_id
+    from (
+             select res.*,
+                    ag.agents,
+                    row (res.id, res.bucket_id, res.type, 499976700000000, res.ran, 100, 100, 2)::cc_sys_distribute_request req
+             from res
+                      left join ag on res.type != 2 and res.team_id = ag.team_id and
+                                      coalesce(res.bucket_id, 0) = coalesce(ag.bucket_id, 0)
+             where (res.type = 2 or ag.agents notnull) --and res.id = 2 and ag.bucket_id isnull
+             order by res.pos
+         ) t,
+         lateral cc_test_recursion(
+                 t.req,
+                 t.agents,
+                 t.resources,
+                 t.types
+             ) x (id bigint, destination_idx int4, resource_id int4, agent_id int4);
+
+    cnt = (select count(*) from cc_distribute_member_tmp);
+
+    insert into cc_member_attempt(member_id, queue_id, resource_id, agent_id, bucket_id, destination)
+    select t.id, t.queue_id, t.resource_id, t.agent_id, t.bucket_id, (cm.communications->t.destination_idx - 1) as destination
+    from cc_distribute_member_tmp t
+        inner join cc_member cm on t.id = cm.id;
+
+    return cnt;
+END;
+$$;
 
 
 --
@@ -3468,7 +3498,6 @@ DECLARE
   _stopped boolean;
   _break boolean;
   _member_id bigint;
-  _communication_id bigint;
 BEGIN
      update cc_member_attempt
      set hangup_at = _hangup_at,
@@ -3476,7 +3505,7 @@ BEGIN
          result = _cause,
          logs = _logs
      where id = _attempt_id
-     returning member_id, communication_id into _member_id, _communication_id;
+     returning member_id into _member_id;
 
 
      if _member_id isnull then
@@ -3584,16 +3613,7 @@ BEGIN
      set hangup_at = _hangup_at,
          state = _state,
          result = _cause
-     where id = _attempt_id
-     returning communication_id into _communication_id;
-
-     update
-       cc_member_communications
-     set attempts = attempts + _delta,
-         last_hangup_at = _hangup_at,
-         last_hangup_cause = coalesce(_cause, '') -- todo
-     where id = _communication_id
-     returning member_id into  _member_id;
+     where id = _attempt_id;
 
 
      update cc_member m
@@ -3601,7 +3621,6 @@ BEGIN
           stop_at = _hangup_at
      from cc_queue q
      where _delta != 0 and m.id = _member_id and q.id = m.queue_id
-       and q.max_of_retry <= (select sum(attempts) from cc_member_communications where member_id = _member_id)
      returning m.id into _member_id;
 
 
@@ -3616,7 +3635,27 @@ $$;
 
 CREATE FUNCTION call_center.cc_sys_distribute_members(integer, integer, integer, integer, integer, bigint, smallint[], call_center.cc_sys_distribute_type[], call_center.cc_sys_distribute_resource[], integer[]) RETURNS TABLE(id bigint, destination_idx smallint, resource_id bigint, agent_id integer)
     LANGUAGE c IMMUTABLE
-    AS '/wbt_cc_sql.so', 'cc_sys_distribute_members';
+    AS '$libdir/wbt_cc_sql.so', 'cc_sys_distribute_members';
+
+
+--
+-- Name: cc_team_agents_by_bucket(integer, integer); Type: FUNCTION; Schema: call_center; Owner: -
+--
+
+CREATE FUNCTION call_center.cc_team_agents_by_bucket(team_id_ integer, bucket_id integer) RETURNS integer[]
+    LANGUAGE plpgsql
+    AS $_$
+    declare res int4[];
+begin
+    select array_agg(ab.agent_id order by a.last_state_change)
+    into res
+    from cc_sys_agent_group_team_bucket ab
+        inner join cc_agent a on a.id = ab.agent_id
+    where ab.team_id = $1::int4 and  case when $2 isnull then ab.bucket_id isnull else ab.bucket_id = $2 end;
+
+    return res;
+end;
+$_$;
 
 
 --
@@ -3761,6 +3800,15 @@ CREATE FUNCTION call_center.cc_test_pair(call_center.cc_member_communications) R
     AS $_$
     select row($1.communication_id, $1.attempts)::cc_pair_test
 $_$;
+
+
+--
+-- Name: cc_test_recursion(call_center.cc_sys_distribute_request, integer[], call_center.cc_sys_distribute_resource[], call_center.cc_sys_distribute_type[]); Type: FUNCTION; Schema: call_center; Owner: -
+--
+
+CREATE FUNCTION call_center.cc_test_recursion(req call_center.cc_sys_distribute_request, agents integer[], resources call_center.cc_sys_distribute_resource[], types call_center.cc_sys_distribute_type[]) RETURNS SETOF record
+    LANGUAGE c
+    AS '$libdir/wbt_cc_sql.so', 'cc_test_recursion';
 
 
 --
@@ -7214,11 +7262,11 @@ CREATE VIEW call_center.cc_member_attempt_log_day AS
      LEFT JOIN LATERAL ( SELECT l.queue_id,
             l.bucket_id,
             count(*) AS count,
-            count(*) FILTER (WHERE (l.success IS TRUE)) AS success_count,
+            count(*) FILTER (WHERE ((l.result)::text = 'SUCCESSFUL'::text)) AS success_count,
             max(l.created_at) AS max,
             avg(((l.hangup_at - l.bridged_at) / 1000)) FILTER (WHERE (l.bridged_at > 0)) AS avg_bill_sec
            FROM call_center.cc_member_attempt_log l
-          WHERE ((l.created_at > t.max) AND (COALESCE(l.bucket_id, (0)::bigint) = COALESCE(t.bucket_id, (0)::bigint)) AND (l.queue_id = t.queue_id))
+          WHERE ((l.created_at > (CURRENT_DATE - '1 day'::interval)) AND (l.created_at > t.max) AND (COALESCE(l.bucket_id, (0)::bigint) = COALESCE(t.bucket_id, (0)::bigint)) AND (l.queue_id = t.queue_id))
           GROUP BY l.queue_id, l.bucket_id
           ORDER BY l.queue_id, COALESCE(l.bucket_id, (0)::bigint)) g ON (true));
 
@@ -7753,6 +7801,46 @@ ALTER SEQUENCE call_center.cc_supervisor_in_team_id_seq OWNED BY call_center.cc_
 
 
 --
+-- Name: cc_sys_agent_group_team_bucket; Type: VIEW; Schema: call_center; Owner: -
+--
+
+CREATE VIEW call_center.cc_sys_agent_group_team_bucket AS
+ WITH ag AS (
+         SELECT s.team_id,
+            s.bucket_id,
+            s.agent_id,
+            max(s.lvl) AS lvl,
+            max(s.capacity) AS capacity
+           FROM ( SELECT aq.team_id,
+                    aq.bucket_id,
+                    sa.agent_id,
+                    aq.lvl,
+                    sa.capacity
+                   FROM (call_center.cc_agent_in_team aq
+                     JOIN call_center.cc_skill_in_agent sa ON ((sa.skill_id = aq.skill_id)))
+                  WHERE ((aq.skill_id IS NOT NULL) AND ((sa.capacity >= aq.min_capacity) AND (sa.capacity <= aq.max_capacity)))
+                UNION
+                 SELECT aq.team_id,
+                    aq.bucket_id,
+                    aq.agent_id,
+                    aq.lvl,
+                    0
+                   FROM call_center.cc_agent_in_team aq
+                  WHERE (aq.agent_id IS NOT NULL)) s
+          GROUP BY s.team_id, s.bucket_id, s.agent_id
+        )
+ SELECT row_number() OVER (PARTITION BY ag.team_id, ag.bucket_id ORDER BY ag.lvl DESC, ag.capacity DESC, a.last_state_change) AS pos,
+    ag.team_id,
+    ag.bucket_id,
+    ag.agent_id,
+    ag.lvl,
+    ag.capacity
+   FROM (ag
+     JOIN call_center.cc_agent a ON ((a.id = ag.agent_id)))
+  WHERE (((a.state)::text = 'waiting'::text) AND ((a.status)::text = 'online'::text));
+
+
+--
 -- Name: cc_sys_distribute_queue_bucket_seg; Type: VIEW; Schema: call_center; Owner: -
 --
 
@@ -7760,22 +7848,19 @@ CREATE VIEW call_center.cc_sys_distribute_queue_bucket_seg AS
  SELECT s.queue_id,
     s.bucket_id,
     s.member_waiting,
-    (
         CASE
-            WHEN (s.bucket_id IS NULL) THEN ((s.member_waiting)::bigint)::numeric
-            ELSE (((ceil((((s.member_count * cbiq.ratio) / 100))::double precision))::integer)::numeric - COALESCE(log.cnt, (0)::numeric))
-        END)::bigint AS lim,
+            WHEN ((s.bucket_id IS NULL) OR (s.member_waiting < 2)) THEN (s.member_waiting)::bigint
+            ELSE (((ceil((((s.member_count * cbiq.ratio) / 100))::double precision))::integer - log.log))::bigint
+        END AS lim,
     cbiq.ratio
    FROM ((call_center.cc_queue_statistics s
-     LEFT JOIN call_center.cc_bucket_in_queue cbiq ON ((s.bucket_id = cbiq.bucket_id)))
-     LEFT JOIN LATERAL ( SELECT sum(l.count) AS cnt
-           FROM call_center.cc_member_attempt_log_day l
-          WHERE ((l.queue_id = s.queue_id) AND (l.bucket_id = s.bucket_id))) log ON ((s.bucket_id IS NOT NULL)))
-  WHERE ((s.member_waiting > 0) AND (
+     LEFT JOIN call_center.cc_bucket_in_queue cbiq ON (((s.queue_id = cbiq.queue_id) AND (s.bucket_id = cbiq.bucket_id))))
+     LEFT JOIN LATERAL call_center.cc_member_attempt_log_day_f((s.queue_id)::integer, (s.bucket_id)::integer) log(log) ON ((s.bucket_id IS NOT NULL)))
+  WHERE ((s.member_waiting > 0) AND ((
         CASE
-            WHEN (s.bucket_id IS NULL) THEN ((s.member_waiting)::bigint)::numeric
-            ELSE (((ceil((((s.member_count * cbiq.ratio) / 100))::double precision))::integer)::numeric - COALESCE(log.cnt, (0)::numeric))
-        END > (0)::numeric));
+            WHEN ((s.bucket_id IS NULL) OR (s.member_waiting < 2)) THEN (s.member_waiting)::bigint
+            ELSE (((round((((s.member_count * cbiq.ratio) / 100))::double precision))::integer - COALESCE(log.log, 0)))::bigint
+        END)::numeric > (0)::numeric));
 
 
 --
@@ -7794,7 +7879,7 @@ CREATE VIEW call_center.cc_sys_distribute_queue AS
     cqs.ratio
    FROM (call_center.cc_queue q
      JOIN call_center.cc_sys_distribute_queue_bucket_seg cqs ON ((q.id = cqs.queue_id)))
-  WHERE (q.enabled AND (cqs.member_waiting > 0) AND (cqs.lim > 0))
+  WHERE (q.enabled AND (cqs.member_waiting > 0) AND (cqs.lim > 0) AND (q.type > 1))
   ORDER BY q.domain_id, q.priority DESC, cqs.ratio DESC NULLS LAST;
 
 
@@ -8740,254 +8825,6 @@ CREATE TABLE directory.wbt_user_token (
     deleted_at timestamp without time zone,
     deleted_by bigint
 );
-
-
---
--- Name: actions; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.actions (
-    id integer NOT NULL,
-    name character varying(5) NOT NULL
-);
-
-
---
--- Name: o_groups; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.o_groups (
-    id integer NOT NULL,
-    name character varying(50) NOT NULL
-);
-
-
---
--- Name: o_groups_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.o_groups_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: o_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.o_groups_id_seq OWNED BY igor.o_groups.id;
-
-
---
--- Name: o_u_groups_permissions; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.o_u_groups_permissions (
-    o_u_groups_permissions_id integer NOT NULL,
-    o_group_id integer,
-    u_group_id integer,
-    act_id integer
-);
-
-
---
--- Name: o_u_groups_permissions_o_u_groups_permissions_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.o_u_groups_permissions_o_u_groups_permissions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: o_u_groups_permissions_o_u_groups_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.o_u_groups_permissions_o_u_groups_permissions_id_seq OWNED BY igor.o_u_groups_permissions.o_u_groups_permissions_id;
-
-
---
--- Name: objects; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.objects (
-    id integer NOT NULL,
-    name character varying(50) DEFAULT 'dsadsadsad'::character varying
-);
-
-
---
--- Name: objects_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.objects_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: objects_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.objects_id_seq OWNED BY igor.objects.id;
-
-
---
--- Name: objects_o_groups_xref; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.objects_o_groups_xref (
-    objects_o_groups_xref_id integer NOT NULL,
-    o_group_id integer,
-    obj_id integer
-);
-
-
---
--- Name: objects_o_groups_xref_objects_o_groups_xref_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.objects_o_groups_xref_objects_o_groups_xref_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: objects_o_groups_xref_objects_o_groups_xref_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.objects_o_groups_xref_objects_o_groups_xref_id_seq OWNED BY igor.objects_o_groups_xref.objects_o_groups_xref_id;
-
-
---
--- Name: permissions; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.permissions (
-    id integer NOT NULL,
-    usr_id integer,
-    obj_id integer,
-    act_id integer
-);
-
-
---
--- Name: permissions_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.permissions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.permissions_id_seq OWNED BY igor.permissions.id;
-
-
---
--- Name: u_groups; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.u_groups (
-    id integer NOT NULL,
-    name character varying(50) NOT NULL
-);
-
-
---
--- Name: u_groups_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.u_groups_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: u_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.u_groups_id_seq OWNED BY igor.u_groups.id;
-
-
---
--- Name: users; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.users (
-    id integer NOT NULL,
-    name character varying(50) NOT NULL
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.users_id_seq OWNED BY igor.users.id;
-
-
---
--- Name: users_u_groups_xref; Type: TABLE; Schema: igor; Owner: -
---
-
-CREATE TABLE igor.users_u_groups_xref (
-    users_u_groups_xref_id integer NOT NULL,
-    u_group_id integer,
-    usr_id integer
-);
-
-
---
--- Name: users_u_groups_xref_users_u_groups_xref_id_seq; Type: SEQUENCE; Schema: igor; Owner: -
---
-
-CREATE SEQUENCE igor.users_u_groups_xref_users_u_groups_xref_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_u_groups_xref_users_u_groups_xref_id_seq; Type: SEQUENCE OWNED BY; Schema: igor; Owner: -
---
-
-ALTER SEQUENCE igor.users_u_groups_xref_users_u_groups_xref_id_seq OWNED BY igor.users_u_groups_xref.users_u_groups_xref_id;
 
 
 --
@@ -13420,62 +13257,6 @@ ALTER TABLE ONLY directory.wbt_grant ALTER COLUMN uuid SET DEFAULT nextval('dire
 
 
 --
--- Name: o_groups id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_groups ALTER COLUMN id SET DEFAULT nextval('igor.o_groups_id_seq'::regclass);
-
-
---
--- Name: o_u_groups_permissions o_u_groups_permissions_id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_u_groups_permissions ALTER COLUMN o_u_groups_permissions_id SET DEFAULT nextval('igor.o_u_groups_permissions_o_u_groups_permissions_id_seq'::regclass);
-
-
---
--- Name: objects id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects ALTER COLUMN id SET DEFAULT nextval('igor.objects_id_seq'::regclass);
-
-
---
--- Name: objects_o_groups_xref objects_o_groups_xref_id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects_o_groups_xref ALTER COLUMN objects_o_groups_xref_id SET DEFAULT nextval('igor.objects_o_groups_xref_objects_o_groups_xref_id_seq'::regclass);
-
-
---
--- Name: permissions id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.permissions ALTER COLUMN id SET DEFAULT nextval('igor.permissions_id_seq'::regclass);
-
-
---
--- Name: u_groups id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.u_groups ALTER COLUMN id SET DEFAULT nextval('igor.u_groups_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users ALTER COLUMN id SET DEFAULT nextval('igor.users_id_seq'::regclass);
-
-
---
--- Name: users_u_groups_xref users_u_groups_xref_id; Type: DEFAULT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users_u_groups_xref ALTER COLUMN users_u_groups_xref_id SET DEFAULT nextval('igor.users_u_groups_xref_users_u_groups_xref_id_seq'::regclass);
-
-
---
 -- Name: wbt_auth id; Type: DEFAULT; Schema: permissions; Owner: -
 --
 
@@ -14675,78 +14456,6 @@ ALTER TABLE ONLY directory.wbt_user
 
 ALTER TABLE ONLY directory.wbt_user_token
     ADD CONSTRAINT wbt_user_token_pk PRIMARY KEY (id);
-
-
---
--- Name: actions my_actions_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.actions
-    ADD CONSTRAINT my_actions_pkey PRIMARY KEY (id);
-
-
---
--- Name: objects my_objects_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects
-    ADD CONSTRAINT my_objects_pkey PRIMARY KEY (id);
-
-
---
--- Name: permissions my_permissions_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.permissions
-    ADD CONSTRAINT my_permissions_pkey PRIMARY KEY (id);
-
-
---
--- Name: users my_users_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users
-    ADD CONSTRAINT my_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: o_groups o_groups_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_groups
-    ADD CONSTRAINT o_groups_pkey PRIMARY KEY (id);
-
-
---
--- Name: o_u_groups_permissions o_u_groups_permissions_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_u_groups_permissions
-    ADD CONSTRAINT o_u_groups_permissions_pkey PRIMARY KEY (o_u_groups_permissions_id);
-
-
---
--- Name: objects_o_groups_xref objects_o_groups_xref_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects_o_groups_xref
-    ADD CONSTRAINT objects_o_groups_xref_pkey PRIMARY KEY (objects_o_groups_xref_id);
-
-
---
--- Name: u_groups u_groups_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.u_groups
-    ADD CONSTRAINT u_groups_pkey PRIMARY KEY (id);
-
-
---
--- Name: users_u_groups_xref users_u_groups_xref_pkey; Type: CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users_u_groups_xref
-    ADD CONSTRAINT users_u_groups_xref_pkey PRIMARY KEY (users_u_groups_xref_id);
 
 
 --
@@ -15990,31 +15699,10 @@ CREATE UNIQUE INDEX calendar_timezones_utc_offset_index ON call_center.calendar_
 
 
 --
--- Name: cc_agent_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_agent_acl_grantor_idx ON call_center.cc_agent_acl USING btree (grantor);
-
-
---
 -- Name: cc_agent_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_agent_acl_id_uindex ON call_center.cc_agent_acl USING btree (id);
-
-
---
--- Name: cc_agent_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE UNIQUE INDEX cc_agent_acl_object_subject_udx ON call_center.cc_agent_acl USING btree (object, subject) INCLUDE (access);
-
-
---
--- Name: cc_agent_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE UNIQUE INDEX cc_agent_acl_subject_object_udx ON call_center.cc_agent_acl USING btree (subject, object) INCLUDE (access);
 
 
 --
@@ -16043,6 +15731,20 @@ CREATE UNIQUE INDEX cc_agent_id_uindex ON call_center.cc_agent USING btree (id);
 --
 
 CREATE INDEX cc_agent_in_team_agent_id_index ON call_center.cc_agent_in_team USING btree (agent_id);
+
+
+--
+-- Name: cc_agent_in_team_dis_agent; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_agent_in_team_dis_agent ON call_center.cc_agent_in_team USING btree (team_id, bucket_id, agent_id, lvl);
+
+
+--
+-- Name: cc_agent_in_team_dis_skill; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_agent_in_team_dis_skill ON call_center.cc_agent_in_team USING btree (team_id, bucket_id, skill_id, lvl) INCLUDE (min_capacity, max_capacity);
 
 
 --
@@ -16193,31 +15895,10 @@ CREATE UNIQUE INDEX cc_communication_id_uindex ON call_center.cc_communication U
 
 
 --
--- Name: cc_list_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_list_acl_grantor_idx ON call_center.cc_list_acl USING btree (grantor);
-
-
---
 -- Name: cc_list_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_list_acl_id_uindex ON call_center.cc_list_acl USING btree (id);
-
-
---
--- Name: cc_list_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE UNIQUE INDEX cc_list_acl_object_subject_udx ON call_center.cc_list_acl USING btree (object, subject) INCLUDE (access);
-
-
---
--- Name: cc_list_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE UNIQUE INDEX cc_list_acl_subject_object_udx ON call_center.cc_list_acl USING btree (subject, object) INCLUDE (access);
 
 
 --
@@ -16232,13 +15913,6 @@ CREATE UNIQUE INDEX cc_list_communications_id_uindex ON call_center.cc_list_comm
 --
 
 CREATE UNIQUE INDEX cc_list_communications_list_id_number_uindex ON call_center.cc_list_communications USING btree (list_id, number);
-
-
---
--- Name: cc_list_domain_udx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE UNIQUE INDEX cc_list_domain_udx ON call_center.cc_list USING btree (id, domain_id);
 
 
 --
@@ -16284,6 +15958,13 @@ CREATE INDEX cc_member_attempt_log_hangup_at_index ON call_center.cc_member_atte
 
 
 --
+-- Name: cc_member_attempt_log_member_id_index; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_member_attempt_log_member_id_index ON call_center.cc_member_attempt_log USING btree (member_id);
+
+
+--
 -- Name: cc_member_attempt_log_queue_id_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
@@ -16309,13 +15990,6 @@ CREATE INDEX cc_member_attempt_queue_id_index ON call_center.cc_member_attempt U
 --
 
 CREATE INDEX cc_member_communication_dis_idx ON call_center.cc_member_communications USING btree (queue_id, member_id, communication_id, last_hangup_at) INCLUDE (id) WHERE (state = 0);
-
-
---
--- Name: cc_member_communication_idx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_member_communication_idx ON call_center.cc_member USING gin (queue_id, communications jsonb_path_ops);
 
 
 --
@@ -16347,20 +16021,6 @@ CREATE INDEX cc_member_distribute_check_sys_offset_id ON call_center.cc_member U
 
 
 --
--- Name: cc_member_distribute_check_type_prior_dx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_member_distribute_check_type_prior_dx ON call_center.cc_member USING btree (queue_id, call_center.cc_destination_type_id(call_center.cc_destination_top_by_priority(sys_destinations)));
-
-
---
--- Name: cc_member_distribute_check_type_top_dx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_member_distribute_check_type_top_dx ON call_center.cc_member USING btree (queue_id, call_center.cc_destination_type_id(call_center.cc_destination_top(sys_destinations)));
-
-
---
 -- Name: cc_member_distribute_cycle_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
@@ -16379,13 +16039,6 @@ CREATE INDEX cc_member_distribute_to_down_idx ON call_center.cc_member USING btr
 --
 
 CREATE UNIQUE INDEX cc_member_messages_id_uindex ON call_center.cc_member_messages USING btree (id);
-
-
---
--- Name: cc_member_number_idx; Type: INDEX; Schema: call_center; Owner: -
---
-
-CREATE INDEX cc_member_number_idx ON call_center.cc_member USING gin (queue_id, communications jsonb_path_ops);
 
 
 --
@@ -16476,7 +16129,7 @@ CREATE UNIQUE INDEX cc_queue_acl_id_uindex ON call_center.cc_queue_acl USING btr
 -- Name: cc_queue_distribute_res_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
-CREATE INDEX cc_queue_distribute_res_idx ON call_center.cc_queue USING btree (domain_id, priority DESC) INCLUDE (id, name, calendar_id) WHERE (enabled IS TRUE);
+CREATE INDEX cc_queue_distribute_res_idx ON call_center.cc_queue USING btree (domain_id, priority DESC) INCLUDE (id, name, calendar_id, type) WHERE (enabled IS TRUE);
 
 
 --
@@ -16925,34 +16578,6 @@ CREATE UNIQUE INDEX wbt_user_token_udx ON directory.wbt_user_token USING btree (
 --
 
 CREATE INDEX wbt_user_token_user_id_idx ON directory.wbt_user_token USING btree (user_id);
-
-
---
--- Name: o_u_groups_permissions_act_id_u_group_id_o_group_id_uindex; Type: INDEX; Schema: igor; Owner: -
---
-
-CREATE UNIQUE INDEX o_u_groups_permissions_act_id_u_group_id_o_group_id_uindex ON igor.o_u_groups_permissions USING btree (act_id, u_group_id, o_group_id);
-
-
---
--- Name: objects_o_groups_xref_o_group_id_obj_id_uindex; Type: INDEX; Schema: igor; Owner: -
---
-
-CREATE UNIQUE INDEX objects_o_groups_xref_o_group_id_obj_id_uindex ON igor.objects_o_groups_xref USING btree (o_group_id, obj_id);
-
-
---
--- Name: permissions_usr_id_act_id_obj_id_uindex; Type: INDEX; Schema: igor; Owner: -
---
-
-CREATE UNIQUE INDEX permissions_usr_id_act_id_obj_id_uindex ON igor.permissions USING btree (usr_id, act_id, obj_id);
-
-
---
--- Name: users_u_groups_xref_usr_id_u_group_id_uindex; Type: INDEX; Schema: igor; Owner: -
---
-
-CREATE UNIQUE INDEX users_u_groups_xref_usr_id_u_group_id_uindex ON igor.users_u_groups_xref USING btree (usr_id, u_group_id);
 
 
 --
@@ -18560,14 +18185,6 @@ ALTER TABLE ONLY call_center.cc_agent_acl
 
 
 --
--- Name: cc_agent_acl cc_agent_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_agent_acl
-    ADD CONSTRAINT cc_agent_acl_object_fk FOREIGN KEY (object) REFERENCES call_center.cc_agent(id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-
-
---
 -- Name: cc_agent_attempt cc_agent_attempt_cc_agent_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
 --
 
@@ -18581,6 +18198,14 @@ ALTER TABLE ONLY call_center.cc_agent_attempt
 
 ALTER TABLE ONLY call_center.cc_agent_in_team
     ADD CONSTRAINT cc_agent_in_team_cc_agent_id_fk FOREIGN KEY (agent_id) REFERENCES call_center.cc_agent(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cc_agent_in_team cc_agent_in_team_cc_bucket_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_in_team
+    ADD CONSTRAINT cc_agent_in_team_cc_bucket_id_fk FOREIGN KEY (bucket_id) REFERENCES call_center.cc_bucket(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 --
@@ -18653,46 +18278,6 @@ ALTER TABLE ONLY call_center.cc_bucket_in_queue
 
 ALTER TABLE ONLY call_center.cc_bucket_in_queue
     ADD CONSTRAINT cc_bucket_in_queue_cc_queue_id_fk FOREIGN KEY (queue_id) REFERENCES call_center.cc_queue(id);
-
-
---
--- Name: cc_list_acl cc_list_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_list_acl
-    ADD CONSTRAINT cc_list_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
-
-
---
--- Name: cc_list_acl cc_list_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_list_acl
-    ADD CONSTRAINT cc_list_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
-
-
---
--- Name: cc_list_acl cc_list_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_list_acl
-    ADD CONSTRAINT cc_list_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
-
-
---
--- Name: cc_list_acl cc_list_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_list_acl
-    ADD CONSTRAINT cc_list_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_list(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: cc_list_acl cc_list_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.cc_list_acl
-    ADD CONSTRAINT cc_list_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -19117,14 +18702,6 @@ ALTER TABLE ONLY directory.roles
 
 ALTER TABLE ONLY directory.roles
     ADD CONSTRAINT roles_dc_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
-
-
---
--- Name: sip_gateway sip_gateway_acr_routing_scheme_id_fk; Type: FK CONSTRAINT; Schema: directory; Owner: -
---
-
-ALTER TABLE ONLY directory.sip_gateway
-    ADD CONSTRAINT sip_gateway_acr_routing_scheme_id_fk FOREIGN KEY (scheme_id) REFERENCES call_center.acr_routing_scheme(id) ON DELETE SET NULL;
 
 
 --
@@ -19565,86 +19142,6 @@ ALTER TABLE ONLY directory.wbt_user_token
 
 ALTER TABLE ONLY directory.wbt_user
     ADD CONSTRAINT wbt_user_updated_by_fk FOREIGN KEY (updated_by, dc) REFERENCES directory.wbt_user(id, dc) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: permissions my_permissions_act_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.permissions
-    ADD CONSTRAINT my_permissions_act_id_fkey FOREIGN KEY (act_id) REFERENCES igor.actions(id);
-
-
---
--- Name: permissions my_permissions_obj_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.permissions
-    ADD CONSTRAINT my_permissions_obj_id_fkey FOREIGN KEY (obj_id) REFERENCES igor.objects(id);
-
-
---
--- Name: permissions my_permissions_usr_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.permissions
-    ADD CONSTRAINT my_permissions_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES igor.users(id);
-
-
---
--- Name: o_u_groups_permissions o_u_groups_permissions_act_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_u_groups_permissions
-    ADD CONSTRAINT o_u_groups_permissions_act_id_fkey FOREIGN KEY (act_id) REFERENCES igor.actions(id);
-
-
---
--- Name: o_u_groups_permissions o_u_groups_permissions_o_group_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_u_groups_permissions
-    ADD CONSTRAINT o_u_groups_permissions_o_group_id_fkey FOREIGN KEY (o_group_id) REFERENCES igor.o_groups(id);
-
-
---
--- Name: o_u_groups_permissions o_u_groups_permissions_u_group_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.o_u_groups_permissions
-    ADD CONSTRAINT o_u_groups_permissions_u_group_id_fkey FOREIGN KEY (u_group_id) REFERENCES igor.u_groups(id);
-
-
---
--- Name: objects_o_groups_xref objects_o_groups_xref_o_group_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects_o_groups_xref
-    ADD CONSTRAINT objects_o_groups_xref_o_group_id_fkey FOREIGN KEY (o_group_id) REFERENCES igor.o_groups(id);
-
-
---
--- Name: objects_o_groups_xref objects_o_groups_xref_obj_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.objects_o_groups_xref
-    ADD CONSTRAINT objects_o_groups_xref_obj_id_fkey FOREIGN KEY (obj_id) REFERENCES igor.objects(id);
-
-
---
--- Name: users_u_groups_xref users_u_groups_xref_u_group_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users_u_groups_xref
-    ADD CONSTRAINT users_u_groups_xref_u_group_id_fkey FOREIGN KEY (u_group_id) REFERENCES igor.u_groups(id);
-
-
---
--- Name: users_u_groups_xref users_u_groups_xref_usr_id_fkey; Type: FK CONSTRAINT; Schema: igor; Owner: -
---
-
-ALTER TABLE ONLY igor.users_u_groups_xref
-    ADD CONSTRAINT users_u_groups_xref_usr_id_fkey FOREIGN KEY (usr_id) REFERENCES igor.users(id);
 
 
 --
