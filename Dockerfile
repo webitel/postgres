@@ -12,6 +12,5 @@ COPY install-0-pgcrypto.sh /docker-entrypoint-initdb.d/
 COPY install-0-uuid-ossp.sh /docker-entrypoint-initdb.d/
 COPY install-0-btree-gin.sh /docker-entrypoint-initdb.d/
 COPY install-0-pg-trgm.sh /docker-entrypoint-initdb.d/
-COPY install-0-wbt-cc.sh /docker-entrypoint-initdb.d/
 
 COPY install-webitel-empty-db.sh /docker-entrypoint-initdb.d/

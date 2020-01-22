@@ -1,4 +1,4 @@
 #!/bin/sh
-set -e
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" "$POSTGRES_DB" -f /sql/webitel.sql
+psql --username "$POSTGRES_USER" "$POSTGRES_DB" -a -f /sql/webitel.sql
+
