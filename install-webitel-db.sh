@@ -2,6 +2,8 @@
 
 psql --username "$POSTGRES_USER" "$POSTGRES_DB" -a -f /sql/webitel.sql
 psql --username "$POSTGRES_USER" "$POSTGRES_DB" -a -f /sql/tbl_version.sql
+psql --username "$POSTGRES_USER" "$POSTGRES_DB" -a -f /sql/tbl_dispatcher.sql
+psql --username "$POSTGRES_USER" "$POSTGRES_DB" -a -f /sql/tbl_rtpengine.sql
 
 psql --username "$POSTGRES_USER" "$POSTGRES_DB" <<-EOSQL
 insert into call_center.calendar_timezone_offsets (id, utc_offset, names)
