@@ -247,6 +247,7 @@ SELECT
 DROP STATISTICS IF EXISTS directory.s2_test;
 DROP STATISTICS IF EXISTS directory.s1_test;
 DROP STATISTICS IF EXISTS call_center.cc_member_timezone_stats;
+DROP INDEX IF EXISTS storage.media_files_domain_id_name_uindex;
 DROP INDEX IF EXISTS storage.file_backend_profiles_acl_id_uindex;
 DROP INDEX IF EXISTS public.xcap_source_idx;
 DROP INDEX IF EXISTS public.widget_id_index;
@@ -574,7 +575,6 @@ DROP INDEX IF EXISTS call_center.acr_routing_inbound_call_id_uindex;
 DROP INDEX IF EXISTS call_center.acr_routing_inbound_call_domain_id_numbers_host_disabled_index;
 DROP INDEX IF EXISTS call_center.acr_jobs_id_uindex;
 ALTER TABLE IF EXISTS ONLY storage.upload_file_jobs DROP CONSTRAINT IF EXISTS upload_file_jobs_pkey;
-ALTER TABLE IF EXISTS ONLY storage.session DROP CONSTRAINT IF EXISTS session_pkey;
 ALTER TABLE IF EXISTS ONLY storage.schedulers DROP CONSTRAINT IF EXISTS schedulers_pkey;
 ALTER TABLE IF EXISTS ONLY storage.remove_file_jobs DROP CONSTRAINT IF EXISTS remove_file_jobs_pkey;
 ALTER TABLE IF EXISTS ONLY storage.media_files DROP CONSTRAINT IF EXISTS media_files_pkey;
@@ -948,7 +948,6 @@ ALTER TABLE IF EXISTS call_center.acr_routing_inbound_call ALTER COLUMN id DROP 
 ALTER TABLE IF EXISTS call_center.acr_jobs ALTER COLUMN id DROP DEFAULT;
 DROP SEQUENCE IF EXISTS storage.upload_file_jobs_id_seq;
 DROP TABLE IF EXISTS storage.upload_file_jobs;
-DROP TABLE IF EXISTS storage.session;
 DROP SEQUENCE IF EXISTS storage.schedulers_id_seq;
 DROP TABLE IF EXISTS storage.schedulers;
 DROP SEQUENCE IF EXISTS storage.remove_file_jobs_id_seq;
@@ -2359,7 +2358,7 @@ CREATE TABLE call_center.cc_member (
     id integer NOT NULL,
     queue_id integer NOT NULL,
     priority smallint DEFAULT 0 NOT NULL,
-    expire_at integer,
+    expire_at bigint,
     variables jsonb DEFAULT '{}'::jsonb,
     name character varying(50) DEFAULT ''::character varying NOT NULL,
     stop_cause character varying(50),
@@ -13044,7 +13043,6 @@ ALTER SEQUENCE storage.file_backend_profiles_id_seq OWNED BY storage.file_backen
 
 CREATE TABLE storage.files (
     id bigint NOT NULL,
-    domain character varying(100) NOT NULL,
     name character varying(100) NOT NULL,
     size bigint NOT NULL,
     mime_type character varying(20),
@@ -13054,7 +13052,8 @@ CREATE TABLE storage.files (
     profile_id integer,
     created_at bigint,
     removed boolean,
-    not_exists boolean
+    not_exists boolean,
+    domain_id bigint NOT NULL
 );
 
 
@@ -13102,16 +13101,16 @@ CREATE TABLE storage.jobs (
 
 CREATE TABLE storage.media_files (
     id bigint NOT NULL,
-    domain character varying(100) NOT NULL,
     name character varying(100) NOT NULL,
     size bigint NOT NULL,
     mime_type character varying(40),
     properties jsonb,
-    instance character varying(20),
-    created_by text,
+    instance character varying(50),
     created_at bigint,
-    updated_by text,
-    updated_at bigint
+    updated_at bigint,
+    domain_id bigint NOT NULL,
+    created_by bigint NOT NULL,
+    updated_by bigint NOT NULL
 );
 
 
@@ -13202,34 +13201,22 @@ ALTER SEQUENCE storage.schedulers_id_seq OWNED BY storage.schedulers.id;
 
 
 --
--- Name: session; Type: TABLE; Schema: storage; Owner: -
---
-
-CREATE TABLE storage.session (
-    key text NOT NULL,
-    token character varying(500),
-    user_id character varying(26),
-    domain character varying(100)
-);
-
-
---
 -- Name: upload_file_jobs; Type: TABLE; Schema: storage; Owner: -
 --
 
 CREATE TABLE storage.upload_file_jobs (
     id bigint NOT NULL,
-    state integer,
+    state integer DEFAULT 0 NOT NULL,
     name character varying(100) NOT NULL,
     uuid character varying(36) NOT NULL,
     mime_type character varying(36),
     size bigint NOT NULL,
-    email_msg character varying(500),
-    email_sub character varying(150),
-    instance character varying(10),
+    email_msg character varying(500) DEFAULT ''::character varying NOT NULL,
+    email_sub character varying(150) DEFAULT ''::character varying NOT NULL,
+    instance character varying(50),
     created_at bigint NOT NULL,
     updated_at bigint,
-    attempts integer NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
     domain_id bigint NOT NULL
 );
 
@@ -16068,14 +16055,6 @@ ALTER TABLE ONLY storage.schedulers
 
 
 --
--- Name: session session_pkey; Type: CONSTRAINT; Schema: storage; Owner: -
---
-
-ALTER TABLE ONLY storage.session
-    ADD CONSTRAINT session_pkey PRIMARY KEY (key);
-
-
---
 -- Name: upload_file_jobs upload_file_jobs_pkey; Type: CONSTRAINT; Schema: storage; Owner: -
 --
 
@@ -18363,6 +18342,13 @@ CREATE INDEX xcap_source_idx ON public.xcap USING btree (source);
 --
 
 CREATE UNIQUE INDEX file_backend_profiles_acl_id_uindex ON storage.file_backend_profiles_acl USING btree (id);
+
+
+--
+-- Name: media_files_domain_id_name_uindex; Type: INDEX; Schema: storage; Owner: -
+--
+
+CREATE UNIQUE INDEX media_files_domain_id_name_uindex ON storage.media_files USING btree (domain_id, name);
 
 
 --

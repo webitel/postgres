@@ -29,7 +29,7 @@ COPY public.rtpengine (id, socket, set_id) FROM stdin;
 -- Name: rtpengine_id_seq; Type: SEQUENCE SET; Schema: public; Owner: opensips
 --
 
-SELECT pg_catalog.setval('public.rtpengine_id_seq', 6, true);
+SELECT pg_catalog.setval('public.rtpengine_id_seq', 1, true);
 
 
 --
