@@ -16,6 +16,11 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY public.widget DROP CONSTRAINT IF EXISTS widget_callback_queue_id_fk;
 ALTER TABLE IF EXISTS ONLY public.wbt_token DROP CONSTRAINT IF EXISTS wbt_token_owner;
 ALTER TABLE IF EXISTS ONLY public.wbt_token DROP CONSTRAINT IF EXISTS wbt_token_domain;
@@ -79,6 +84,7 @@ ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wb
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_domain_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_disabled_by_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user_token DROP CONSTRAINT IF EXISTS wbt_user_token_created_by_fk;
+ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_device_id_ref;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_device_id_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_deleted_by_fk;
 ALTER TABLE IF EXISTS ONLY directory.wbt_user DROP CONSTRAINT IF EXISTS wbt_user_dc_fk;
@@ -141,6 +147,11 @@ ALTER TABLE IF EXISTS ONLY directory.contacts DROP CONSTRAINT IF EXISTS contacts
 ALTER TABLE IF EXISTS ONLY directory.contacts_acl DROP CONSTRAINT IF EXISTS contacts_acl_object_fk;
 ALTER TABLE IF EXISTS ONLY directory.contacts_acl DROP CONSTRAINT IF EXISTS contacts_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_team DROP CONSTRAINT IF EXISTS cc_team_wbt_domain_dc_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_team_acl DROP CONSTRAINT IF EXISTS cc_team_acl_cc_team_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_supervisor_in_team DROP CONSTRAINT IF EXISTS cc_supervisor_in_team_cc_team_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_supervisor_in_team DROP CONSTRAINT IF EXISTS cc_supervisor_in_team_cc_agent_id_fk;
@@ -156,6 +167,11 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_queue_resource DROP CONSTRAINT IF EXIS
 ALTER TABLE IF EXISTS ONLY call_center.cc_queue DROP CONSTRAINT IF EXISTS cc_queue_cc_team_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_queue DROP CONSTRAINT IF EXISTS cc_queue_cc_list_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_queue DROP CONSTRAINT IF EXISTS cc_queue_calendar_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_queue_acl DROP CONSTRAINT IF EXISTS cc_queue_acl_cc_queue_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource DROP CONSTRAINT IF EXISTS cc_outbound_resource_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource DROP CONSTRAINT IF EXISTS cc_outbound_resource_sip_gateway_id_fk;
@@ -165,8 +181,18 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group DROP CONSTRAIN
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_cc_communication_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_wbt_user_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_wbt_domain_dc_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_group_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_group_acl_cc_outbound_resource_group_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_display DROP CONSTRAINT IF EXISTS cc_outbound_resource_display_cc_outbound_resource_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_outbound_resource_acl DROP CONSTRAINT IF EXISTS cc_outbound_resource_acl_cc_outbound_resource_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_member_messages DROP CONSTRAINT IF EXISTS cc_member_messages_cc_member_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_member_messages DROP CONSTRAINT IF EXISTS cc_member_messages_cc_member_communications_id_fk;
@@ -181,8 +207,18 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_member_attempt DROP CONSTRAINT IF EXIS
 ALTER TABLE IF EXISTS ONLY call_center.cc_member_attempt DROP CONSTRAINT IF EXISTS cc_member_attempt_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_list DROP CONSTRAINT IF EXISTS cc_list_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_list_communications DROP CONSTRAINT IF EXISTS cc_list_communications_cc_list_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_list_acl DROP CONSTRAINT IF EXISTS cc_list_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_in_queue DROP CONSTRAINT IF EXISTS cc_bucket_in_queue_cc_queue_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_in_queue DROP CONSTRAINT IF EXISTS cc_bucket_in_queue_cc_bucket_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_bucket_acl DROP CONSTRAINT IF EXISTS cc_bucket_acl_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent DROP CONSTRAINT IF EXISTS cc_agent_wbt_user_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent DROP CONSTRAINT IF EXISTS cc_agent_wbt_domain_dc_fk;
@@ -193,15 +229,23 @@ ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXIST
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_bucket_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_in_team DROP CONSTRAINT IF EXISTS cc_agent_in_team_cc_agent_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_attempt DROP CONSTRAINT IF EXISTS cc_agent_attempt_cc_agent_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.cc_agent_acl DROP CONSTRAINT IF EXISTS cc_agent_acl_cc_agent_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar DROP CONSTRAINT IF EXISTS calendar_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar_except DROP CONSTRAINT IF EXISTS calendar_except_calendar_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar DROP CONSTRAINT IF EXISTS calendar_calendar_timezones_id_fk;
-ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_calendar_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_subject_fk;
+ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_object_fk;
+ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_grantor_id_fk;
+ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_grantor_fk;
+ALTER TABLE IF EXISTS ONLY call_center.calendar_acl DROP CONSTRAINT IF EXISTS calendar_acl_domain_fk;
 ALTER TABLE IF EXISTS ONLY call_center.calendar_accept_of_day DROP CONSTRAINT IF EXISTS calendar_accept_of_day_calendar_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.acr_routing_variables DROP CONSTRAINT IF EXISTS acr_routing_variables_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.acr_routing_scheme DROP CONSTRAINT IF EXISTS acr_routing_scheme_wbt_domain_dc_fk;
-ALTER TABLE IF EXISTS ONLY call_center.acr_routing_outbound_call DROP CONSTRAINT IF EXISTS acr_routing_outbound_call_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.acr_routing_outbound_call DROP CONSTRAINT IF EXISTS acr_routing_outbound_call_acr_routing_scheme_id_fk;
 ALTER TABLE IF EXISTS ONLY call_center.acr_routing_inbound_call DROP CONSTRAINT IF EXISTS acr_routing_inbound_call_wbt_domain_dc_fk;
 ALTER TABLE IF EXISTS ONLY call_center.acr_routing_inbound_call DROP CONSTRAINT IF EXISTS acr_routing_inbound_call_calendar_timezones_id_fk;
@@ -247,7 +291,11 @@ DROP STATISTICS IF EXISTS directory.s2_test;
 DROP STATISTICS IF EXISTS directory.s1_test;
 DROP STATISTICS IF EXISTS call_center.cc_member_timezone_stats;
 DROP INDEX IF EXISTS storage.media_files_domain_id_name_uindex;
+DROP INDEX IF EXISTS storage.file_backend_profiles_domain_udx;
+DROP INDEX IF EXISTS storage.file_backend_profiles_acl_subject_object_udx;
+DROP INDEX IF EXISTS storage.file_backend_profiles_acl_object_subject_udx;
 DROP INDEX IF EXISTS storage.file_backend_profiles_acl_id_uindex;
+DROP INDEX IF EXISTS storage.file_backend_profiles_acl_grantor_idx;
 DROP INDEX IF EXISTS public.xcap_source_idx;
 DROP INDEX IF EXISTS public.widget_id_index;
 DROP INDEX IF EXISTS public.wbt_sequence_name;
@@ -483,7 +531,11 @@ DROP INDEX IF EXISTS directory.contacts_dc_index;
 DROP INDEX IF EXISTS directory.contacts_acl_subject_object_access_uindex;
 DROP INDEX IF EXISTS directory.contacts_acl_object_subject_access_uindex;
 DROP INDEX IF EXISTS call_center.cc_team_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_team_domain_udx;
+DROP INDEX IF EXISTS call_center.cc_team_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_team_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_team_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_team_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_supervisor_in_team_team_id_agent_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_supervisor_in_team_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_skils_id_uindex;
@@ -495,17 +547,29 @@ DROP INDEX IF EXISTS call_center.cc_queue_resource_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_queue_member_statistics_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_queue_id_priority_uindex;
 DROP INDEX IF EXISTS call_center.cc_queue_enabled_priority_index;
+DROP INDEX IF EXISTS call_center.cc_queue_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_queue_distribute_res_idx;
+DROP INDEX IF EXISTS call_center.cc_queue_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_queue_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_queue_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_queue_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_in_group_resource_id_group_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_in_group_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_distr_res_idx;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_group_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_gateway_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_display_resource_id_index;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_display_resource_id_display_uindex;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_display_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_outbound_resource_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_outbound_resource_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_member_timezone_index;
 DROP INDEX IF EXISTS call_center.cc_member_queue_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_messages_id_uindex;
@@ -526,9 +590,13 @@ DROP INDEX IF EXISTS call_center.cc_member_attempt_log_created_at_agent_id_uinde
 DROP INDEX IF EXISTS call_center.cc_member_attempt_log_created_at_agent_id_index;
 DROP INDEX IF EXISTS call_center.cc_member_attempt_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_member_agent_id_index;
+DROP INDEX IF EXISTS call_center.cc_list_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_list_communications_list_id_number_uindex;
 DROP INDEX IF EXISTS call_center.cc_list_communications_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_list_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_list_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_list_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_list_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_communication_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_communication_code_domain_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_cluster_node_name_uindex;
@@ -537,6 +605,10 @@ DROP INDEX IF EXISTS call_center.cc_call_list_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_bucket_in_queue_queue_id_bucket_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_bucket_in_queue_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_bucket_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_bucket_domain_udx;
+DROP INDEX IF EXISTS call_center.cc_bucket_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_bucket_acl_object_subject_udx;
+DROP INDEX IF EXISTS call_center.cc_bucket_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.cc_agent_status_state_id_index;
 DROP INDEX IF EXISTS call_center.cc_agent_status_history_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_agent_status_history_agent_id_join_at_index;
@@ -554,15 +626,22 @@ DROP INDEX IF EXISTS call_center.cc_agent_in_team_dis_skill;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_dis_agent;
 DROP INDEX IF EXISTS call_center.cc_agent_in_team_agent_id_index;
 DROP INDEX IF EXISTS call_center.cc_agent_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_agent_domain_udx;
 DROP INDEX IF EXISTS call_center.cc_agent_attempt_id_uindex;
 DROP INDEX IF EXISTS call_center.cc_agent_activity_agent_id_last_offering_call_at_uindex;
+DROP INDEX IF EXISTS call_center.cc_agent_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.cc_agent_acl_object_subject_udx;
 DROP INDEX IF EXISTS call_center.cc_agent_acl_id_uindex;
+DROP INDEX IF EXISTS call_center.cc_agent_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.calendar_timezones_utc_offset_index;
 DROP INDEX IF EXISTS call_center.calendar_timezones_name_uindex;
 DROP INDEX IF EXISTS call_center.calendar_timezones_id_uindex;
 DROP INDEX IF EXISTS call_center.calendar_id_uindex;
 DROP INDEX IF EXISTS call_center.calendar_except_id_uindex;
-DROP INDEX IF EXISTS call_center.calendar_domain_id_index;
+DROP INDEX IF EXISTS call_center.calendar_domain_udx;
+DROP INDEX IF EXISTS call_center.calendar_acl_subject_object_udx;
+DROP INDEX IF EXISTS call_center.calendar_acl_object_subject_udx;
+DROP INDEX IF EXISTS call_center.calendar_acl_grantor_idx;
 DROP INDEX IF EXISTS call_center.calendar_accept_of_day_id_uindex;
 DROP INDEX IF EXISTS call_center.calendar_accept_of_day_calendar_id_week_day_start_time_of_day_e;
 DROP INDEX IF EXISTS call_center.agent_statistic_id_uindex;
@@ -581,7 +660,6 @@ ALTER TABLE IF EXISTS ONLY storage.jobs DROP CONSTRAINT IF EXISTS jobs_pkey;
 ALTER TABLE IF EXISTS ONLY storage.files DROP CONSTRAINT IF EXISTS files_pkey;
 ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles DROP CONSTRAINT IF EXISTS file_backend_profiles_pkey;
 ALTER TABLE IF EXISTS ONLY storage.file_backend_profiles_acl DROP CONSTRAINT IF EXISTS file_backend_profiles_acl_pk;
-ALTER TABLE IF EXISTS ONLY storage.file_backend_profile_type DROP CONSTRAINT IF EXISTS file_backend_profile_type_pkey;
 ALTER TABLE IF EXISTS ONLY public.xcap DROP CONSTRAINT IF EXISTS xcap_pkey;
 ALTER TABLE IF EXISTS ONLY public.xcap DROP CONSTRAINT IF EXISTS xcap_account_doc_type_idx;
 ALTER TABLE IF EXISTS ONLY public.widget DROP CONSTRAINT IF EXISTS widget_id_pk;
@@ -798,7 +876,6 @@ ALTER TABLE IF EXISTS storage.media_files ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS storage.files ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS storage.file_backend_profiles_acl ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS storage.file_backend_profiles ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE IF EXISTS storage.file_backend_profile_type ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.xcap ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.widget ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.watchers ALTER COLUMN id DROP DEFAULT;
@@ -942,6 +1019,7 @@ ALTER TABLE IF EXISTS call_center.calendar_accept_of_day ALTER COLUMN id DROP DE
 ALTER TABLE IF EXISTS call_center.calendar ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS call_center.acr_routing_variables ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS call_center.acr_routing_scheme ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS call_center.acr_routing_outbound_call ALTER COLUMN pos DROP DEFAULT;
 ALTER TABLE IF EXISTS call_center.acr_routing_outbound_call ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS call_center.acr_routing_inbound_call ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS call_center.acr_jobs ALTER COLUMN id DROP DEFAULT;
@@ -960,8 +1038,6 @@ DROP SEQUENCE IF EXISTS storage.file_backend_profiles_id_seq;
 DROP SEQUENCE IF EXISTS storage.file_backend_profiles_acl_id_seq;
 DROP TABLE IF EXISTS storage.file_backend_profiles_acl;
 DROP TABLE IF EXISTS storage.file_backend_profiles;
-DROP SEQUENCE IF EXISTS storage.file_backend_profile_type_id_seq;
-DROP TABLE IF EXISTS storage.file_backend_profile_type;
 DROP SEQUENCE IF EXISTS public.xcap_id_seq;
 DROP TABLE IF EXISTS public.xcap;
 DROP SEQUENCE IF EXISTS public.widget_id_seq;
@@ -1218,6 +1294,7 @@ DROP SEQUENCE IF EXISTS directory.contacts_id_seq;
 DROP TABLE IF EXISTS directory.contacts_acl;
 DROP TABLE IF EXISTS directory.contacts;
 DROP TABLE IF EXISTS directory.certs;
+DROP VIEW IF EXISTS call_center.cc_vw_members;
 DROP SEQUENCE IF EXISTS call_center.cc_team_id_seq;
 DROP SEQUENCE IF EXISTS call_center.cc_team_acl_id_seq;
 DROP TABLE IF EXISTS call_center.cc_team_acl;
@@ -1319,6 +1396,7 @@ DROP SEQUENCE IF EXISTS call_center.acr_routing_variables_id_seq;
 DROP TABLE IF EXISTS call_center.acr_routing_variables;
 DROP SEQUENCE IF EXISTS call_center.acr_routing_scheme_id_seq;
 DROP TABLE IF EXISTS call_center.acr_routing_scheme;
+DROP SEQUENCE IF EXISTS call_center.acr_routing_outbound_call_pos_seq;
 DROP SEQUENCE IF EXISTS call_center.acr_routing_outbound_call_id_seq;
 DROP TABLE IF EXISTS call_center.acr_routing_outbound_call;
 DROP SEQUENCE IF EXISTS call_center.acr_routing_inbound_call_id_seq;
@@ -1372,6 +1450,7 @@ DROP FUNCTION IF EXISTS directory.current_roles(domain_id integer, user_id integ
 DROP FUNCTION IF EXISTS call_center.un_reserve_members_with_resources(node character varying, res character varying);
 DROP FUNCTION IF EXISTS call_center.tg_get_member_communication_resource();
 DROP FUNCTION IF EXISTS call_center.tg_fill_member_communication_resource();
+DROP PROCEDURE IF EXISTS call_center.test_sp(INOUT cnt integer);
 DROP FUNCTION IF EXISTS call_center.reserve_members_with_resources(node_id character varying);
 DROP FUNCTION IF EXISTS call_center.index_page(relname text, pageno integer);
 DROP FUNCTION IF EXISTS call_center.heap_page(relname text, pageno integer);
@@ -3843,7 +3922,7 @@ $_$;
 --
 
 CREATE FUNCTION call_center.cc_test_recursion(req call_center.cc_sys_distribute_request, agents integer[], resources call_center.cc_sys_distribute_resource[], types call_center.cc_sys_distribute_type[]) RETURNS SETOF record
-    LANGUAGE c
+    LANGUAGE c IMMUTABLE
     AS '$libdir/wbt_cc_sql.so', 'cc_test_recursion';
 
 
@@ -4546,6 +4625,86 @@ BEGIN
     END LOOP;
     return count;
 END;
+$$;
+
+
+--
+-- Name: test_sp(integer); Type: PROCEDURE; Schema: call_center; Owner: -
+--
+
+CREATE PROCEDURE call_center.test_sp(INOUT cnt integer)
+    LANGUAGE plpgsql
+    AS $$
+    begin
+        if NOT pg_try_advisory_xact_lock(13213211) then
+        raise notice 'LOCK';
+        return;
+    end if;
+
+    CREATE temp table cc_distribute_member_tmp ON COMMIT DROP as
+    with dis as (
+        select q.domain_id,
+               row_number() over (partition by q.domain_id order by q.priority desc, csdqbs.bucket_id nulls last) pos,
+               q.id,
+               q.team_id,
+               q.calendar_id,
+               q.type,
+               csdqbs.bucket_id,
+               case
+                   when q.type = 1 then (select count(*) --fixme for test
+                                         from cc_member_attempt a
+                                         where a.queue_id = q.id
+                                           and a.state = 3
+                                           and a.agent_id isnull)
+                   else csdqbs.member_waiting end                                                                 member_waiting
+        from cc_queue q
+                 left join cc_sys_distribute_queue_bucket_seg csdqbs on q.id = csdqbs.queue_id and q.type > 1
+        where q.enabled
+          and (q.type < 2 or csdqbs.member_waiting > 0)
+    )
+            ,
+         res as (
+             select dis.*, r.resources, r.types, r.ran
+             from dis
+                      left join cc_sys_queue_distribute_resources r on r.queue_id = dis.id and dis.type != 1
+             where dis.member_waiting > 0
+               and (dis.type = 1 or r.queue_id notnull)
+         ),
+         ag as (
+             select t.*, cc_team_agents_by_bucket(t.team_id::int, t.bucket_id::int) agents
+             from (
+                      select res.team_id, res.bucket_id
+                      from res
+                      where res.team_id notnull
+                        and res.type != 2
+                      group by res.team_id, res.bucket_id
+                  ) t
+         )
+    select x.*, t.bucket_id, t.id as queue_id
+    from (
+             select res.*,
+                    ag.agents,
+                    row (res.id, res.bucket_id, res.type, 499976700000000, res.ran, 100, 100, 2)::cc_sys_distribute_request req
+             from res
+                      left join ag on res.type != 2 and res.team_id = ag.team_id and
+                                      coalesce(res.bucket_id, 0) = coalesce(ag.bucket_id, 0)
+             where (res.type = 2 or ag.agents notnull) --and res.id = 2 and ag.bucket_id isnull
+             order by res.pos
+         ) t,
+         lateral cc_test_recursion(
+                 t.req,
+                 t.agents,
+                 t.resources,
+                 t.types
+             ) x (id bigint, destination_idx int4, resource_id int4, agent_id int4);
+
+    cnt = (select count(*) from cc_distribute_member_tmp);
+
+    insert into cc_member_attempt(member_id, queue_id, resource_id, agent_id, bucket_id, destination)
+    select t.id, t.queue_id, t.resource_id, t.agent_id, t.bucket_id, (cm.communications->t.destination_idx - 1) as destination
+    from cc_distribute_member_tmp t
+        inner join cc_member cm on t.id = cm.id;
+    end;
 $$;
 
 
@@ -6123,7 +6282,8 @@ CREATE TABLE call_center.acr_routing_outbound_call (
     pattern character varying(50) NOT NULL,
     priority integer DEFAULT 0 NOT NULL,
     disabled boolean DEFAULT false,
-    scheme_id bigint NOT NULL
+    scheme_id bigint NOT NULL,
+    pos integer NOT NULL
 );
 
 
@@ -6147,6 +6307,26 @@ ALTER SEQUENCE call_center.acr_routing_outbound_call_id_seq OWNED BY call_center
 
 
 --
+-- Name: acr_routing_outbound_call_pos_seq; Type: SEQUENCE; Schema: call_center; Owner: -
+--
+
+CREATE SEQUENCE call_center.acr_routing_outbound_call_pos_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: acr_routing_outbound_call_pos_seq; Type: SEQUENCE OWNED BY; Schema: call_center; Owner: -
+--
+
+ALTER SEQUENCE call_center.acr_routing_outbound_call_pos_seq OWNED BY call_center.acr_routing_outbound_call.pos;
+
+
+--
 -- Name: acr_routing_scheme; Type: TABLE; Schema: call_center; Owner: -
 --
 
@@ -6155,7 +6335,7 @@ CREATE TABLE call_center.acr_routing_scheme (
     domain_id bigint NOT NULL,
     name character varying(100) NOT NULL,
     scheme jsonb NOT NULL,
-    payload jsonb,
+    payload jsonb DEFAULT '{}'::jsonb NOT NULL,
     type smallint DEFAULT 0 NOT NULL,
     created_at bigint NOT NULL,
     created_by bigint NOT NULL,
@@ -6909,7 +7089,8 @@ CREATE TABLE directory.wbt_auth (
     name text,
     password text,
     can_login boolean DEFAULT false NOT NULL,
-    tel_number name
+    tel_number name,
+    usage text
 );
 
 
@@ -6918,6 +7099,13 @@ CREATE TABLE directory.wbt_auth (
 --
 
 COMMENT ON TABLE directory.wbt_auth IS 'Webitel Administrative Roles';
+
+
+--
+-- Name: COLUMN wbt_auth.usage; Type: COMMENT; Schema: directory; Owner: -
+--
+
+COMMENT ON COLUMN directory.wbt_auth.usage IS 'optional short usage description';
 
 
 --
@@ -8053,6 +8241,31 @@ CREATE SEQUENCE call_center.cc_team_id_seq
 --
 
 ALTER SEQUENCE call_center.cc_team_id_seq OWNED BY call_center.cc_team.id;
+
+
+--
+-- Name: cc_vw_members; Type: VIEW; Schema: call_center; Owner: -
+--
+
+CREATE VIEW call_center.cc_vw_members AS
+ SELECT m.id,
+    m.stop_at,
+    m.stop_cause,
+    m.attempts,
+    m.last_hangup_at,
+    m.created_at,
+    m.queue_id,
+    m.priority,
+    m.expire_at,
+    m.variables,
+    m.name,
+    call_center.cc_get_lookup((ct.id)::bigint, ct.name) AS timezone,
+    call_center.cc_member_communications(m.communications) AS communications,
+    call_center.cc_get_lookup(qb.id, ((qb.name)::text)::character varying) AS bucket,
+    m.min_offering_at
+   FROM ((call_center.cc_member m
+     LEFT JOIN call_center.calendar_timezones ct ON ((m.timezone_id = ct.id)))
+     LEFT JOIN call_center.cc_bucket qb ON ((m.bucket_id = qb.id)));
 
 
 --
@@ -12930,37 +13143,6 @@ ALTER SEQUENCE public.xcap_id_seq OWNED BY public.xcap.id;
 
 
 --
--- Name: file_backend_profile_type; Type: TABLE; Schema: storage; Owner: -
---
-
-CREATE TABLE storage.file_backend_profile_type (
-    id integer NOT NULL,
-    name character varying(50),
-    code character varying(10)
-);
-
-
---
--- Name: file_backend_profile_type_id_seq; Type: SEQUENCE; Schema: storage; Owner: -
---
-
-CREATE SEQUENCE storage.file_backend_profile_type_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: file_backend_profile_type_id_seq; Type: SEQUENCE OWNED BY; Schema: storage; Owner: -
---
-
-ALTER SEQUENCE storage.file_backend_profile_type_id_seq OWNED BY storage.file_backend_profile_type.id;
-
-
---
 -- Name: file_backend_profiles; Type: TABLE; Schema: storage; Owner: -
 --
 
@@ -13258,6 +13440,13 @@ ALTER TABLE ONLY call_center.acr_routing_inbound_call ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY call_center.acr_routing_outbound_call ALTER COLUMN id SET DEFAULT nextval('call_center.acr_routing_outbound_call_id_seq'::regclass);
+
+
+--
+-- Name: acr_routing_outbound_call pos; Type: DEFAULT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.acr_routing_outbound_call ALTER COLUMN pos SET DEFAULT nextval('call_center.acr_routing_outbound_call_pos_seq'::regclass);
 
 
 --
@@ -14259,13 +14448,6 @@ ALTER TABLE ONLY public.widget ALTER COLUMN id SET DEFAULT nextval('public.widge
 --
 
 ALTER TABLE ONLY public.xcap ALTER COLUMN id SET DEFAULT nextval('public.xcap_id_seq'::regclass);
-
-
---
--- Name: file_backend_profile_type id; Type: DEFAULT; Schema: storage; Owner: -
---
-
-ALTER TABLE ONLY storage.file_backend_profile_type ALTER COLUMN id SET DEFAULT nextval('storage.file_backend_profile_type_id_seq'::regclass);
 
 
 --
@@ -15990,14 +16172,6 @@ ALTER TABLE ONLY public.xcap
 
 
 --
--- Name: file_backend_profile_type file_backend_profile_type_pkey; Type: CONSTRAINT; Schema: storage; Owner: -
---
-
-ALTER TABLE ONLY storage.file_backend_profile_type
-    ADD CONSTRAINT file_backend_profile_type_pkey PRIMARY KEY (id);
-
-
---
 -- Name: file_backend_profiles_acl file_backend_profiles_acl_pk; Type: CONSTRAINT; Schema: storage; Owner: -
 --
 
@@ -16132,10 +16306,31 @@ CREATE UNIQUE INDEX calendar_accept_of_day_id_uindex ON call_center.calendar_acc
 
 
 --
--- Name: calendar_domain_id_index; Type: INDEX; Schema: call_center; Owner: -
+-- Name: calendar_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
-CREATE INDEX calendar_domain_id_index ON call_center.calendar USING btree (domain_id);
+CREATE INDEX calendar_acl_grantor_idx ON call_center.calendar_acl USING btree (grantor);
+
+
+--
+-- Name: calendar_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX calendar_acl_object_subject_udx ON call_center.calendar_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: calendar_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX calendar_acl_subject_object_udx ON call_center.calendar_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
+-- Name: calendar_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX calendar_domain_udx ON call_center.calendar USING btree (id, domain_id);
 
 
 --
@@ -16174,10 +16369,31 @@ CREATE UNIQUE INDEX calendar_timezones_utc_offset_index ON call_center.calendar_
 
 
 --
+-- Name: cc_agent_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_agent_acl_grantor_idx ON call_center.cc_agent_acl USING btree (grantor);
+
+
+--
 -- Name: cc_agent_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_agent_acl_id_uindex ON call_center.cc_agent_acl USING btree (id);
+
+
+--
+-- Name: cc_agent_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_agent_acl_object_subject_udx ON call_center.cc_agent_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_agent_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_agent_acl_subject_object_udx ON call_center.cc_agent_acl USING btree (subject, object) INCLUDE (access);
 
 
 --
@@ -16192,6 +16408,13 @@ CREATE UNIQUE INDEX cc_agent_activity_agent_id_last_offering_call_at_uindex ON c
 --
 
 CREATE UNIQUE INDEX cc_agent_attempt_id_uindex ON call_center.cc_agent_attempt USING btree (id);
+
+
+--
+-- Name: cc_agent_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_agent_domain_udx ON call_center.cc_agent USING btree (id, domain_id);
 
 
 --
@@ -16314,6 +16537,34 @@ CREATE INDEX cc_agent_status_state_id_index ON call_center.cc_agent USING btree 
 
 
 --
+-- Name: cc_bucket_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_bucket_acl_grantor_idx ON call_center.cc_bucket_acl USING btree (grantor);
+
+
+--
+-- Name: cc_bucket_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_bucket_acl_object_subject_udx ON call_center.cc_bucket_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_bucket_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_bucket_acl_subject_object_udx ON call_center.cc_bucket_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
+-- Name: cc_bucket_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_bucket_domain_udx ON call_center.cc_bucket USING btree (id, domain_id);
+
+
+--
 -- Name: cc_bucket_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
@@ -16370,10 +16621,31 @@ CREATE UNIQUE INDEX cc_communication_id_uindex ON call_center.cc_communication U
 
 
 --
+-- Name: cc_list_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_list_acl_grantor_idx ON call_center.cc_list_acl USING btree (grantor);
+
+
+--
 -- Name: cc_list_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_list_acl_id_uindex ON call_center.cc_list_acl USING btree (id);
+
+
+--
+-- Name: cc_list_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_list_acl_object_subject_udx ON call_center.cc_list_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_list_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_list_acl_subject_object_udx ON call_center.cc_list_acl USING btree (subject, object) INCLUDE (access);
 
 
 --
@@ -16388,6 +16660,13 @@ CREATE UNIQUE INDEX cc_list_communications_id_uindex ON call_center.cc_list_comm
 --
 
 CREATE UNIQUE INDEX cc_list_communications_list_id_number_uindex ON call_center.cc_list_communications USING btree (list_id, number);
+
+
+--
+-- Name: cc_list_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_list_domain_udx ON call_center.cc_list USING btree (id, domain_id);
 
 
 --
@@ -16531,10 +16810,31 @@ CREATE INDEX cc_member_timezone_index ON call_center.cc_member USING btree (time
 
 
 --
+-- Name: cc_outbound_resource_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_outbound_resource_acl_grantor_idx ON call_center.cc_outbound_resource_acl USING btree (grantor);
+
+
+--
 -- Name: cc_outbound_resource_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_outbound_resource_acl_id_uindex ON call_center.cc_outbound_resource_acl USING btree (id);
+
+
+--
+-- Name: cc_outbound_resource_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_acl_object_subject_udx ON call_center.cc_outbound_resource_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_outbound_resource_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_acl_subject_object_udx ON call_center.cc_outbound_resource_acl USING btree (subject, object) INCLUDE (access);
 
 
 --
@@ -16559,10 +16859,24 @@ CREATE INDEX cc_outbound_resource_display_resource_id_index ON call_center.cc_ou
 
 
 --
+-- Name: cc_outbound_resource_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_domain_udx ON call_center.cc_outbound_resource USING btree (id, domain_id);
+
+
+--
 -- Name: cc_outbound_resource_gateway_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_outbound_resource_gateway_id_uindex ON call_center.cc_outbound_resource USING btree (gateway_id);
+
+
+--
+-- Name: cc_outbound_resource_group_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_outbound_resource_group_acl_grantor_idx ON call_center.cc_outbound_resource_group_acl USING btree (grantor);
 
 
 --
@@ -16573,10 +16887,31 @@ CREATE UNIQUE INDEX cc_outbound_resource_group_acl_id_uindex ON call_center.cc_o
 
 
 --
+-- Name: cc_outbound_resource_group_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_group_acl_object_subject_udx ON call_center.cc_outbound_resource_group_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_outbound_resource_group_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_group_acl_subject_object_udx ON call_center.cc_outbound_resource_group_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
 -- Name: cc_outbound_resource_group_distr_res_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_outbound_resource_group_distr_res_idx ON call_center.cc_outbound_resource_group USING btree (id, domain_id) INCLUDE (name);
+
+
+--
+-- Name: cc_outbound_resource_group_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_outbound_resource_group_domain_udx ON call_center.cc_outbound_resource_group USING btree (id, domain_id);
 
 
 --
@@ -16594,6 +16929,13 @@ CREATE UNIQUE INDEX cc_outbound_resource_in_group_resource_id_group_id_uindex ON
 
 
 --
+-- Name: cc_queue_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_queue_acl_grantor_idx ON call_center.cc_queue_acl USING btree (grantor);
+
+
+--
 -- Name: cc_queue_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
@@ -16601,10 +16943,31 @@ CREATE UNIQUE INDEX cc_queue_acl_id_uindex ON call_center.cc_queue_acl USING btr
 
 
 --
+-- Name: cc_queue_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_queue_acl_object_subject_udx ON call_center.cc_queue_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_queue_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_queue_acl_subject_object_udx ON call_center.cc_queue_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
 -- Name: cc_queue_distribute_res_idx; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE INDEX cc_queue_distribute_res_idx ON call_center.cc_queue USING btree (domain_id, priority DESC) INCLUDE (id, name, calendar_id, type) WHERE (enabled IS TRUE);
+
+
+--
+-- Name: cc_queue_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_queue_domain_udx ON call_center.cc_queue USING btree (id, domain_id);
 
 
 --
@@ -16685,10 +17048,38 @@ CREATE UNIQUE INDEX cc_supervisor_in_team_team_id_agent_id_uindex ON call_center
 
 
 --
+-- Name: cc_team_acl_grantor_idx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE INDEX cc_team_acl_grantor_idx ON call_center.cc_team_acl USING btree (grantor);
+
+
+--
 -- Name: cc_team_acl_id_uindex; Type: INDEX; Schema: call_center; Owner: -
 --
 
 CREATE UNIQUE INDEX cc_team_acl_id_uindex ON call_center.cc_team_acl USING btree (id);
+
+
+--
+-- Name: cc_team_acl_object_subject_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_team_acl_object_subject_udx ON call_center.cc_team_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: cc_team_acl_subject_object_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_team_acl_subject_object_udx ON call_center.cc_team_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
+-- Name: cc_team_domain_udx; Type: INDEX; Schema: call_center; Owner: -
+--
+
+CREATE UNIQUE INDEX cc_team_domain_udx ON call_center.cc_team USING btree (id, domain_id);
 
 
 --
@@ -18337,10 +18728,38 @@ CREATE INDEX xcap_source_idx ON public.xcap USING btree (source);
 
 
 --
+-- Name: file_backend_profiles_acl_grantor_idx; Type: INDEX; Schema: storage; Owner: -
+--
+
+CREATE INDEX file_backend_profiles_acl_grantor_idx ON storage.file_backend_profiles_acl USING btree (grantor);
+
+
+--
 -- Name: file_backend_profiles_acl_id_uindex; Type: INDEX; Schema: storage; Owner: -
 --
 
 CREATE UNIQUE INDEX file_backend_profiles_acl_id_uindex ON storage.file_backend_profiles_acl USING btree (id);
+
+
+--
+-- Name: file_backend_profiles_acl_object_subject_udx; Type: INDEX; Schema: storage; Owner: -
+--
+
+CREATE UNIQUE INDEX file_backend_profiles_acl_object_subject_udx ON storage.file_backend_profiles_acl USING btree (object, subject) INCLUDE (access);
+
+
+--
+-- Name: file_backend_profiles_acl_subject_object_udx; Type: INDEX; Schema: storage; Owner: -
+--
+
+CREATE UNIQUE INDEX file_backend_profiles_acl_subject_object_udx ON storage.file_backend_profiles_acl USING btree (subject, object) INCLUDE (access);
+
+
+--
+-- Name: file_backend_profiles_domain_udx; Type: INDEX; Schema: storage; Owner: -
+--
+
+CREATE UNIQUE INDEX file_backend_profiles_domain_udx ON storage.file_backend_profiles USING btree (id, domain_id);
 
 
 --
@@ -18602,14 +19021,6 @@ ALTER TABLE ONLY call_center.acr_routing_outbound_call
 
 
 --
--- Name: acr_routing_outbound_call acr_routing_outbound_call_wbt_domain_dc_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
---
-
-ALTER TABLE ONLY call_center.acr_routing_outbound_call
-    ADD CONSTRAINT acr_routing_outbound_call_wbt_domain_dc_fk FOREIGN KEY (domain_id) REFERENCES directory.wbt_domain(dc);
-
-
---
 -- Name: acr_routing_scheme acr_routing_scheme_wbt_domain_dc_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
 --
 
@@ -18634,11 +19045,43 @@ ALTER TABLE ONLY call_center.calendar_accept_of_day
 
 
 --
--- Name: calendar_acl calendar_acl_calendar_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+-- Name: calendar_acl calendar_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
 --
 
 ALTER TABLE ONLY call_center.calendar_acl
-    ADD CONSTRAINT calendar_acl_calendar_id_fk FOREIGN KEY (object) REFERENCES call_center.calendar(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT calendar_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: calendar_acl calendar_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.calendar_acl
+    ADD CONSTRAINT calendar_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: calendar_acl calendar_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.calendar_acl
+    ADD CONSTRAINT calendar_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: calendar_acl calendar_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.calendar_acl
+    ADD CONSTRAINT calendar_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.calendar(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: calendar_acl calendar_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.calendar_acl
+    ADD CONSTRAINT calendar_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -18671,6 +19114,46 @@ ALTER TABLE ONLY call_center.calendar
 
 ALTER TABLE ONLY call_center.cc_agent_acl
     ADD CONSTRAINT cc_agent_acl_cc_agent_id_fk FOREIGN KEY (object) REFERENCES call_center.cc_agent(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cc_agent_acl cc_agent_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_acl
+    ADD CONSTRAINT cc_agent_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_agent_acl cc_agent_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_acl
+    ADD CONSTRAINT cc_agent_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_agent_acl cc_agent_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_acl
+    ADD CONSTRAINT cc_agent_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_agent_acl cc_agent_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_acl
+    ADD CONSTRAINT cc_agent_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_agent(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_agent_acl cc_agent_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_agent_acl
+    ADD CONSTRAINT cc_agent_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -18754,6 +19237,46 @@ ALTER TABLE ONLY call_center.cc_bucket_acl
 
 
 --
+-- Name: cc_bucket_acl cc_bucket_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_bucket_acl
+    ADD CONSTRAINT cc_bucket_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_bucket_acl cc_bucket_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_bucket_acl
+    ADD CONSTRAINT cc_bucket_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_bucket_acl cc_bucket_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_bucket_acl
+    ADD CONSTRAINT cc_bucket_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_bucket_acl cc_bucket_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_bucket_acl
+    ADD CONSTRAINT cc_bucket_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_bucket(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_bucket_acl cc_bucket_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_bucket_acl
+    ADD CONSTRAINT cc_bucket_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
+
+
+--
 -- Name: cc_bucket_in_queue cc_bucket_in_queue_cc_bucket_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
 --
 
@@ -18767,6 +19290,46 @@ ALTER TABLE ONLY call_center.cc_bucket_in_queue
 
 ALTER TABLE ONLY call_center.cc_bucket_in_queue
     ADD CONSTRAINT cc_bucket_in_queue_cc_queue_id_fk FOREIGN KEY (queue_id) REFERENCES call_center.cc_queue(id);
+
+
+--
+-- Name: cc_list_acl cc_list_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_list_acl
+    ADD CONSTRAINT cc_list_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_list_acl cc_list_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_list_acl
+    ADD CONSTRAINT cc_list_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_list_acl cc_list_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_list_acl
+    ADD CONSTRAINT cc_list_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_list_acl cc_list_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_list_acl
+    ADD CONSTRAINT cc_list_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_list(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_list_acl cc_list_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_list_acl
+    ADD CONSTRAINT cc_list_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -18882,6 +19445,46 @@ ALTER TABLE ONLY call_center.cc_outbound_resource_acl
 
 
 --
+-- Name: cc_outbound_resource_acl cc_outbound_resource_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_acl
+    ADD CONSTRAINT cc_outbound_resource_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_outbound_resource_acl cc_outbound_resource_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_acl
+    ADD CONSTRAINT cc_outbound_resource_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_outbound_resource_acl cc_outbound_resource_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_acl
+    ADD CONSTRAINT cc_outbound_resource_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_outbound_resource_acl cc_outbound_resource_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_acl
+    ADD CONSTRAINT cc_outbound_resource_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_outbound_resource(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_outbound_resource_acl cc_outbound_resource_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_acl
+    ADD CONSTRAINT cc_outbound_resource_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
+
+
+--
 -- Name: cc_outbound_resource_display cc_outbound_resource_display_cc_outbound_resource_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
 --
 
@@ -18895,6 +19498,46 @@ ALTER TABLE ONLY call_center.cc_outbound_resource_display
 
 ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
     ADD CONSTRAINT cc_outbound_resource_group_acl_cc_outbound_resource_group_id_fk FOREIGN KEY (object) REFERENCES call_center.cc_outbound_resource_group(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cc_outbound_resource_group_acl cc_outbound_resource_group_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
+    ADD CONSTRAINT cc_outbound_resource_group_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_outbound_resource_group_acl cc_outbound_resource_group_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
+    ADD CONSTRAINT cc_outbound_resource_group_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_outbound_resource_group_acl cc_outbound_resource_group_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
+    ADD CONSTRAINT cc_outbound_resource_group_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_outbound_resource_group_acl cc_outbound_resource_group_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
+    ADD CONSTRAINT cc_outbound_resource_group_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_outbound_resource_group(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_outbound_resource_group_acl cc_outbound_resource_group_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_outbound_resource_group_acl
+    ADD CONSTRAINT cc_outbound_resource_group_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -18967,6 +19610,46 @@ ALTER TABLE ONLY call_center.cc_outbound_resource
 
 ALTER TABLE ONLY call_center.cc_queue_acl
     ADD CONSTRAINT cc_queue_acl_cc_queue_id_fk FOREIGN KEY (object) REFERENCES call_center.cc_queue(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cc_queue_acl cc_queue_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_queue_acl
+    ADD CONSTRAINT cc_queue_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_queue_acl cc_queue_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_queue_acl
+    ADD CONSTRAINT cc_queue_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_queue_acl cc_queue_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_queue_acl
+    ADD CONSTRAINT cc_queue_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_queue_acl cc_queue_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_queue_acl
+    ADD CONSTRAINT cc_queue_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_queue(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_queue_acl cc_queue_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_queue_acl
+    ADD CONSTRAINT cc_queue_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -19087,6 +19770,46 @@ ALTER TABLE ONLY call_center.cc_supervisor_in_team
 
 ALTER TABLE ONLY call_center.cc_team_acl
     ADD CONSTRAINT cc_team_acl_cc_team_id_fk FOREIGN KEY (object) REFERENCES call_center.cc_team(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cc_team_acl cc_team_acl_domain_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_team_acl
+    ADD CONSTRAINT cc_team_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: cc_team_acl cc_team_acl_grantor_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_team_acl
+    ADD CONSTRAINT cc_team_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: cc_team_acl cc_team_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_team_acl
+    ADD CONSTRAINT cc_team_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: cc_team_acl cc_team_acl_object_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_team_acl
+    ADD CONSTRAINT cc_team_acl_object_fk FOREIGN KEY (object, dc) REFERENCES call_center.cc_team(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cc_team_acl cc_team_acl_subject_fk; Type: FK CONSTRAINT; Schema: call_center; Owner: -
+--
+
+ALTER TABLE ONLY call_center.cc_team_acl
+    ADD CONSTRAINT cc_team_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
@@ -19583,6 +20306,14 @@ ALTER TABLE ONLY directory.wbt_user
 
 ALTER TABLE ONLY directory.wbt_user
     ADD CONSTRAINT wbt_user_device_id_fk FOREIGN KEY (device_id, id, dc) REFERENCES directory.wbt_device(id, user_id, dc) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: wbt_user wbt_user_device_id_ref; Type: FK CONSTRAINT; Schema: directory; Owner: -
+--
+
+ALTER TABLE ONLY directory.wbt_user
+    ADD CONSTRAINT wbt_user_device_id_ref FOREIGN KEY (device_id) REFERENCES directory.wbt_device(id) ON DELETE SET NULL DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -20087,6 +20818,46 @@ ALTER TABLE ONLY public.wbt_token
 
 ALTER TABLE ONLY public.widget
     ADD CONSTRAINT widget_callback_queue_id_fk FOREIGN KEY (queue_id) REFERENCES public.callback_queue(id);
+
+
+--
+-- Name: file_backend_profiles_acl file_backend_profiles_acl_domain_fk; Type: FK CONSTRAINT; Schema: storage; Owner: -
+--
+
+ALTER TABLE ONLY storage.file_backend_profiles_acl
+    ADD CONSTRAINT file_backend_profiles_acl_domain_fk FOREIGN KEY (dc) REFERENCES directory.wbt_domain(dc) ON DELETE CASCADE;
+
+
+--
+-- Name: file_backend_profiles_acl file_backend_profiles_acl_grantor_fk; Type: FK CONSTRAINT; Schema: storage; Owner: -
+--
+
+ALTER TABLE ONLY storage.file_backend_profiles_acl
+    ADD CONSTRAINT file_backend_profiles_acl_grantor_fk FOREIGN KEY (grantor, dc) REFERENCES directory.wbt_auth(id, dc);
+
+
+--
+-- Name: file_backend_profiles_acl file_backend_profiles_acl_grantor_id_fk; Type: FK CONSTRAINT; Schema: storage; Owner: -
+--
+
+ALTER TABLE ONLY storage.file_backend_profiles_acl
+    ADD CONSTRAINT file_backend_profiles_acl_grantor_id_fk FOREIGN KEY (grantor) REFERENCES directory.wbt_auth(id) ON DELETE SET NULL;
+
+
+--
+-- Name: file_backend_profiles_acl file_backend_profiles_acl_object_fk; Type: FK CONSTRAINT; Schema: storage; Owner: -
+--
+
+ALTER TABLE ONLY storage.file_backend_profiles_acl
+    ADD CONSTRAINT file_backend_profiles_acl_object_fk FOREIGN KEY (object, dc) REFERENCES storage.file_backend_profiles(id, domain_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: file_backend_profiles_acl file_backend_profiles_acl_subject_fk; Type: FK CONSTRAINT; Schema: storage; Owner: -
+--
+
+ALTER TABLE ONLY storage.file_backend_profiles_acl
+    ADD CONSTRAINT file_backend_profiles_acl_subject_fk FOREIGN KEY (subject, dc) REFERENCES directory.wbt_auth(id, dc) ON DELETE CASCADE;
 
 
 --
